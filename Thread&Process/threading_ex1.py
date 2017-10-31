@@ -12,9 +12,9 @@ for i in range(50):
     t = threading.Thread(target=run,args=('t%s'%i,))
     t.start()
     t_objs.append(t)
-# t.join()
-for t in t_objs:
-    t.join()
+t.join()
+# for t in t_objs:
+#     t.join()
 endtime = time.time()
 print("----------")
 print("cost:",endtime - starttime)
