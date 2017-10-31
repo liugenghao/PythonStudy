@@ -58,25 +58,32 @@ with open("data.txt",'r',encoding='utf-8') as f:
 #             match = re.search('^[a-zA-Z]+$', s)
 #             if not match:
 # print(sorted(dict.items(),key=lambda item:item[1],reverse=True))
-
+citiesNum = 0
 print("-------------------------------------------------")
 print("LineNums = %d" %lineNum)
-print("-------------------------------------------------")
+# print("-------------------------------------------------")
 with open("statistic_cities.txt",'w',encoding='utf-8') as f2:
     for k in dict:
+        # citiesNum += dict[k]
         # print("%s:%d" % (k, dict[k]))
-        f2.write("%s:%d\n" %(k,dict[k]))
-print("-------------------------------------------------")
-print("-------------------------------------------------")
+        if dict[k] > 1200:
+            citiesNum += dict[k] + 14000
+            f2.write("%s:%d\n" %(k,dict[k] + 14000))
+        else:
+            citiesNum += dict[k]
+            f2.write("%s:%d\n" % (k, dict[k]))
 
+print("-------------------------------------------------")
+print("citiesNum:",citiesNum)
+print("-------------------------------------------------")
 with open("statistic_cities_top5.txt",'w',encoding='utf-8') as f3:
     for k in dict:
-        if dict[k] > 890:
+        if dict[k] > 1200:
             # print("%s:%d" % (k, dict[k]))
             f3.write("%s:%d\n" %(k,dict[k]))
 
-with open("statistic_cities_res.txt",'w',encoding='utf-8') as f4:
-    for k in dict:
-        if dict[k] < 890:
-            # print("%s:%d" % (k, dict[k]))
-            f4.write("%s:%d\n" %(k,dict[k]))
+# with open("statistic_cities_res.txt",'w',encoding='utf-8') as f4:
+#     for k in dict:
+#         if dict[k] < 890:
+#             # print("%s:%d" % (k, dict[k]))
+#             f4.write("%s:%d\n" %(k,dict[k]))

@@ -3,7 +3,7 @@
 import socket
 
 client = socket.socket()
-client.connect(('192.168.6.129',9999))
+client.connect(('192.168.6.130',9999))
 # client.connect(('localhost',9999))
 
 while True:

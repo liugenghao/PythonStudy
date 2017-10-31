@@ -3,7 +3,7 @@
 import pickle
 def sayHi(name):
     print("Hello!",name)
-with open("test.txt",'rb')as f:
+with open("test.txt.txt",'rb')as f:
     # data = pickle.loads(f.read())
     # data = pickle.loads(f.read())
     data = pickle.load(f)

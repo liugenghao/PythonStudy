@@ -1,6 +1,6 @@
 # Author:Bill Lew
 def func1():
-    "test"
+    "test.txt"
     print("in the func1")
     return 0
 
