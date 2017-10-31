@@ -7,14 +7,14 @@ def run(n):
     time.sleep(2)
 
 starttime = time.time()
-# t_obj = []
+t_objs = []
 for i in range(50):
     t = threading.Thread(target=run,args=('t%s'%i,))
     t.start()
-    # t_obj.append(t)
-t.join()
-# for t in t_obj:
-#     t.join()
+    t_objs.append(t)
+# t.join()
+for t in t_objs:
+    t.join()
 endtime = time.time()
 print("----------")
 print("cost:",endtime - starttime)
