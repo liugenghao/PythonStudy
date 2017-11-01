@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 class C:
     '''C class'''

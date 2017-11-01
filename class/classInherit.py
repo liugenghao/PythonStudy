@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 class People:
     def __init__(self,name,age):

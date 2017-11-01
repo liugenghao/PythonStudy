@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import socket,os,hashlib
 
 server = socket.socket()

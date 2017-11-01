@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import socket
 server = socket.socket()
 server.bind(('localhost',9999))

@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import time
 def consumer(name):
     print("【%s】准备吃包子了" %name)

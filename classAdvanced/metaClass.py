@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 class MyType(type):
     def __init__(self,what,bases=None,dict=None):
         print("--MyType init---")

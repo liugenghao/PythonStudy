@@ -1,4 +1,3 @@
-# Author:Bill Lew\
 
 f = open("BubbleTea",'r',encoding='utf-8')
 f_new = open("BubbleTea.bak",'w',encoding='utf-8')

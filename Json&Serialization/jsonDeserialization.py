@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import json
 # import pickle
 def sayHi(name):

@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import socket
 import json
 import os

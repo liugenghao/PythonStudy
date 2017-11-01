@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import json
 
 info = {'name ': 'Bill',"age ": 22}

@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import random
 def randoNumArray(sum,n):
     _sum = sum

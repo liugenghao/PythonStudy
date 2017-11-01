@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import sys,time
 f = open("BubbleTea.bak","r+",encoding="utf-8")#r+ 读写
 

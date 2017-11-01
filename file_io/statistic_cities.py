@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import re
 cities = []
 with open('defaultCities','r',encoding='utf-8') as f:

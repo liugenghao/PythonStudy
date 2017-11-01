@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import time
 import threading
 

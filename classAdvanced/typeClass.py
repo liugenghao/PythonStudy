@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 def func(self):
     '''type为类的类'''
     print("hello,",self.name)

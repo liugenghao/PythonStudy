@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 def foo():
     print("in the foo")

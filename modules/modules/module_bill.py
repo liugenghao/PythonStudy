@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import sys
 name = "bill"
 

@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 jsSentence = '['
 with open('statistic_cities.txt', 'r', encoding='utf-8') as f:

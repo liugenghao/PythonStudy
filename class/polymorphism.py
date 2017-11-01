@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 class Animal():
     def __init__(self,name):

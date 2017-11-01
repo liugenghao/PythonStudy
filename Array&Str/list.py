@@ -1,4 +1,4 @@
-# Author:Bill Lew
+
 import copy
 
 names = ["ZhangYang","Guyun",["Alex","Bill"],"XuLiangChen"]

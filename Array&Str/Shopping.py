@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 salary  = int(input("Iput Your Salary:"))
 productList = (["Iphone",5666],["Mac Pro",12800],["Samsung S8+",6288],["Bike",1320],["Samsung HardDisk",590])

@@ -1,4 +1,3 @@
-__author__ = "Alex Li"
 
 import socket ,os,time
 server = socket.socket()

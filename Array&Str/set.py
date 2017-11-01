@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 list1 = [1,3,2,4,5,6,3,2,4,6,7,7,9]
 print(list1)

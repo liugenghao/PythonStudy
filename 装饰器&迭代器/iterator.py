@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 from collections import Iterable,Iterator
 

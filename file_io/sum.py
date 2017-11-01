@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 data = [
             {'value':48417, 'name':'江苏省'},

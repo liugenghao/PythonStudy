@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 items = [("Iphone",6888),("Samsung s8+",6288),("XiaoMi Mix2",3299),("Huawei P10",4888),("Meizu Pro7",2599)]
 

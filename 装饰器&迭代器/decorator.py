@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import time
 def timer(func):
     def deco(*args,**kwargs):

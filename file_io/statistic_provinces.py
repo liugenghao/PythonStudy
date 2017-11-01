@@ -1,4 +1,3 @@
-#Author:Bill Lew
 dict = {}
 lineNum = 0
 PROVINCE = []

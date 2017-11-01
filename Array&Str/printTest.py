@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 name = input("name;")
 

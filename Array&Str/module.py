@@ -1,4 +1,4 @@
-# Author:Bill Lew
+
 
 import sys
 import os

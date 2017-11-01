@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import os
 import sys
 import module_bill

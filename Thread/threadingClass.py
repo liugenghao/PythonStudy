@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import threading,time
 class MyTread(threading.Thread):
     def __init__(self,n,sleep_time):

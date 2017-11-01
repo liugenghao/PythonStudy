@@ -1,4 +1,4 @@
-# Authot:Bill Lew
+
 import random
 sum = 6993020
 n = 0

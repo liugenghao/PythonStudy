@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 import functools
 print(all((1,0,-1)))#可迭代元素中所有元素为真则返回真

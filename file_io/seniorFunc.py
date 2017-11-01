@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 
 def add(a,b,f):

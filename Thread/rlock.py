@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import threading
 num1,num2 = 0 ,0
 lock = threading.RLock()#递归锁

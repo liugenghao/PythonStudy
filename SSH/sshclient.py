@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import paramiko
 #创建SSH对象
 ssh = paramiko.SSHClient()

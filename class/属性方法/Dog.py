@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import abc
 class Dog:
     def __init__(self,name,food):

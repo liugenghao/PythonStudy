@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 import random
 order = []
 with open("data.txt",'r',encoding='utf-8') as f:

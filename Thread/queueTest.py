@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 import queue
 # q = queue.Queue(maxsize=2)

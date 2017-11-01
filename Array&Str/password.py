@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import getpass
 G = 50
 count = 0

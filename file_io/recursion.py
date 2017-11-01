@@ -1,4 +1,3 @@
-# Author:Bill Lew
 
 def calc(n):
     print(n)

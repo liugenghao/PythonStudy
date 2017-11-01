@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 
 class BillException(Exception):

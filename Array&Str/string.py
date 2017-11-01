@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 
 name = "liu\tgenghao"
 sentence = "My name is {name},{age} years old"

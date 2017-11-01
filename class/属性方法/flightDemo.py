@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 class Flight(object):
     __status = 1
     def __init__(self,name):

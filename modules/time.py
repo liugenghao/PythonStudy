@@ -1,4 +1,3 @@
-# Author:Bill Lew
 import time,datetime
 
 x = time.localtime()

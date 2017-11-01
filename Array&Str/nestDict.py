@@ -1,4 +1,4 @@
-# Authot:Bill Lew
+
 av_catalog = {
     "欧美":{
         "www.youporn.com": ["很多免费的,世界最大的","质量一般"],

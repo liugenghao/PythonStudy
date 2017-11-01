@@ -1,4 +1,3 @@
-# Author:Bill Lew
 def func1():
     "test.txt"
     print("in the func1")

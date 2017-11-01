@@ -1,4 +1,3 @@
-# Authot:Bill Lew
 def bulk(self):
     print("%s is bulking" % self.name)
 class Dog(object):
