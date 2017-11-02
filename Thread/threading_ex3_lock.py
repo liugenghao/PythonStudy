@@ -2,9 +2,11 @@
 import threading
 import time
 def run(n):
+    # lock.acquire()
     global num
     time.sleep(0.1)
     num += 1
+    # lock.release()
 
 lock = threading.Lock()
 num = 0

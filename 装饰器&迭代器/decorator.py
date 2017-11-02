@@ -1,3 +1,4 @@
+#迭代器
 import time
 def timer(func):
     def deco(*args,**kwargs):

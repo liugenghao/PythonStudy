@@ -1,5 +1,5 @@
 import threading,time
-# lock = threading.RLock()#递归锁
+
 def run(n):
     semaphore.acquire()
     time.sleep(1)
