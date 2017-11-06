@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker,relationship
 # engine = create_engine("mysql+pymysql://root:root@localhost/mytest",encoding='utf-8',echo=True)
 engine = create_engine("mysql+pymysql://root:root@localhost/mytest",encoding='utf-8')
 
-Base = declarative_base()# 生成ORM基类
+Base = declarative_base(engine)# 生成ORM基类
 
 class User(Base):
     __tablename__ = 'new_table_test'
@@ -44,8 +44,8 @@ class Customer(Base):
     billing_address_id = Column(Integer,ForeignKey('address.id'))
     shipping_address_id = Column(Integer,ForeignKey('address.id'))
 
-    billing_address = relationship("Address")
-    shipping_address = relationship("Address")
+    billing_address = relationship("Address",foreign_keys=[billing_address_id])
+    shipping_address = relationship("Address",foreign_keys=[shipping_address_id])
 
 
 class Address(Base):
@@ -55,6 +55,8 @@ class Address(Base):
     city = Column(String(64))
     state = Column(String(64))
 
+    def __repr__(self):
+        return self.street
 
 # Base.metadata.create_all(engine)#创建表结构
 
@@ -106,3 +108,20 @@ Session = Session_class()#数据库会话实例
 
 # Session.commit()
 # Session.rollback()
+
+#多外键关联
+# addr1 = Address(street='Tiantongyuan',city='Changping',state='BJ')
+# addr2 = Address(street='Wudaokou',city='Haidian',state='BJ')
+# addr3 = Address(street='Yanjiao',city='Langfanng',state='Hb')
+#
+# Session.add_all([addr1,addr2,addr3])
+#
+# c1 = Customer(name="Alex",billing_address=addr1,shipping_address=addr2)
+# c2 = Customer(name="Alex",billing_address=addr3,shipping_address=addr3)
+#
+# Session.add_all([c1,c2])
+
+# Session.commit()
+
+result = Session.query(Customer).filter_by(name="Alex").first()
+print(result.billing_address)
