@@ -5,7 +5,7 @@ from sqlalchemy import Column,Integer,String,DATE,Enum,ForeignKey
 from sqlalchemy.orm import sessionmaker,relationship
 
 # engine = create_engine("mysql+pymysql://root:root@localhost/mytest",encoding='utf-8',echo=True)
-engine = create_engine("mysql+pymysql://root:root@localhost/mytest",encoding='utf-8')
+engine = create_engine("mysql+pymysql://root:root@localhost/mytest?charset=utf8",encoding='utf-8')#?charset=utf8支持中文
 
 Base = declarative_base(engine)# 生成ORM基类
 
@@ -15,8 +15,9 @@ class User(Base):
     name = Column(String(32))
     password = Column(String(64))
 
-    def __repr__(self):
-        return "%s.name:%s, password:%s"%(self.id,self.name,self.password)
+    # def __repr__(self):
+    #     return "%s.name:%s, password:%s"%(self.id,self.name,self.password)
+
 class Student(Base):
     __tablename__ = 'student'
     stu_id = Column(Integer,primary_key=True)
@@ -92,20 +93,19 @@ Session = Session_class()#数据库会话实例
 # result = Session.query(Student).filter_by(stu_id=2).first()
 # print(result.my_study_record)#外键下所有属性
 # result = Session.query(StudyRecord).all()
-# result = Session.query(Student).all()
+result = Session.query(Student).all()
 # result = Session.query(Student,Study_record).filter(Student.stu_id == Study_record.id).all()#联合查询1
 # result = Session.query(Student).join(Study_record).all()#联合查询2
-
 #分组
 # from sqlalchemy import func
 # result = Session.query(func.count(User.name),User.name).group_by(User.name).all()
 
-
+print(result)
 #修改数据
 # result.name = 'Bill'
 # result.password = 'qqqqqq'
-
-
+#删除数据
+# Session.delete(result[0])
 # Session.commit()
 # Session.rollback()
 
@@ -123,5 +123,5 @@ Session = Session_class()#数据库会话实例
 
 # Session.commit()
 
-result = Session.query(Customer).filter_by(name="Alex").first()
-print(result.billing_address)
+# result = Session.query(Customer).filter_by(name="Alex").first()
+# print(result.billing_address)

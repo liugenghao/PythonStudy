@@ -5,7 +5,7 @@ from sqlalchemy import Column,Integer,String,DATE,Enum,ForeignKey,Table
 from sqlalchemy.orm import sessionmaker,relationship,mapper
 
 # engine = create_engine("mysql+pymysql://root:root@localhost/mytest",encoding='utf-8',echo=True)
-engine = create_engine("mysql+pymysql://root:root@localhost/books",encoding='utf-8')
+engine = create_engine("mysql+pymysql://root:root@localhost/books?charset=utf8",encoding='utf-8')
 
 Base = declarative_base(engine)# 生成ORM基类
 
