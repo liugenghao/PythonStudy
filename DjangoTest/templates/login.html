@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <form action="login" method="post">
+    <form action="login" method="post" enctype="multipart/form-data">
         <p>
             <label for="username">用户名：</label>
             <input id="username" type="text" name="user" />
@@ -25,6 +25,29 @@
             <input type="submit" value="提交"/>
             <span style="color: red;">{{ error_msg }}</span>
         </p>
+        <p>
+            <label for="male">男</label>
+            <input id="male" type="radio" name="gender" value="1">
+            <label for="female">女</label>
+            <input id="female" type="radio" name="gender" value="2">
+        </p>
+        <p>
+            <label for="football">足球</label>
+            <input id="football" type="checkbox" name="favor" value="1">
+            <label for="basketball">篮球</label>
+            <input id="basketball" type="checkbox" name="favor" value="2">
+            <label for="badminton">羽毛球</label>
+            <input id="badminton" type="checkbox" name="favor" value="3">
+        </p>
+        <p>
+            <select name="city">
+                <option value="shanghai">上海</option>
+                <option value="beijing">北京</option>
+                <option value="shenzhen">深圳</option>
+            </select>
+            <input type="file" name="upload">
+        </p>
+
     </form>
 </body>
 </html>
