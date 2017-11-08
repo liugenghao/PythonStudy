@@ -1,11 +1,11 @@
 __Author__ = 'Bill Lau'
 
 from wsgiref.simple_server import make_server
-from controller import account
+from controller import index
 
 URL_DICT ={
-    '/index':account.handle_index,
-    '/date':account.handle_date
+    '/index':index.handle_index,
+    '/date':index.handle_date
 }
 def RunServer(environ, start_response):
     #environ 客户端发来的所有数据
