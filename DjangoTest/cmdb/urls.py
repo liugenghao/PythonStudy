@@ -17,12 +17,16 @@ Including another URLconf
 from django.conf.urls import url
 from cmdb import views
 urlpatterns = [
-    url(r'^cmdb/', views.cmdb),
-    url(r'^login/',views.Login.as_view()),
-    url(r'^home/',views.Home.as_view()),
+    url(r'^login/',views.Login.as_view(),name='login'),
+    url(r'^home/',views.Home.as_view(),name='home'),
     # url(r'^detail/', views.Detail.as_view()),
     # url(r'^detail/(\d+).html', views.Detail.as_view()),
     url(r'^detail/(?P<nid>\d+).html', views.Detail.as_view()),#(?P<nid>\d+)值固定传递给nid这个形参
     url(r'^$',views.Index.as_view(),name='index'),
     url(r'^orm/',views.ORM.as_view(),name='orm'),
+    url(r'^adduser/', views.AddUser.as_view(), name='adduser'),
+    url(r'^addgroup/', views.AddGroup.as_view(), name='addgroup'),
+    url(r'^deleteuser/(\d+)', views.DeleteUser.as_view(), name='deleteuser'),
+    url(r'^deletegroup/(\d+)', views.DeleteGroup.as_view(), name='deletegroup'),
+    url(r'^edituser/(\d*)', views.EditUser.as_view(), name='edituser'),
 ]

@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-    <h1>详细信息</h1>
-    <h3>用户名：{{ detail_info.username }}</h3>
-    <h3>邮箱：{{ detail_info.email }}</h3>
-    <h3>性别：{{ detail_info.gender }}</h3>
+<body style="margin:0;padding:0;overflow: hidden;">
+    <header style="position: absolute;top:0;height:120px;line-height:80px;width:100%;background:#eaeaea;">
+        <h1 style="margin-left:90px;">角色管理</h1>
+    </header>
+    <nav style="position: absolute;top:120px;bottom:0;left: 0;width: 16%;background: #ccc;text-align: center;">
+        <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/home/">用户列表</a>
+        <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/adduser/">添加用户</a>
+        <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/addgroup/">添加用户组</a>
+    </nav>
+    <div style="position: absolute;top:120px;width:84%;bottom:0;right: 0;background: #fff" class="role_list">
+        <h2 style="margin-left:30px;">{{  user_info.username }}详细信息</h2>
+        <p style="margin-left:30px;">用户名：{{ user_info.username }}</p>
+        <p style="margin-left:30px;">密码：{{ user_info.pwd }}</p>
+        <p style="margin-left:30px;">邮箱：{{ user_info.email }}</p>
+        <p style="margin-left:30px;">用户类型：{{ user_type.name }}</p>
+    </div>
 </body>
 </html>

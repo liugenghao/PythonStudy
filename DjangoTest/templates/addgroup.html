@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/common.css">
+</head>
+<body style="margin:0;padding:0;overflow: hidden;">
+    <header style="position: absolute;top:0;height:120px;line-height:80px;width:100%;background:#eaeaea;">
+        <h1 style="margin-left:90px;">角色管理</h1>
+    </header>
+    <nav style="position: absolute;top:120px;bottom:0;left: 0;width: 16%;background: #ccc;text-align: center;">
+        <a class="menu" href="/cmdb/home/">用户列表</a>
+        <a class="menu" href="/cmdb/adduser/">用户管理</a>
+        <a class="menu" href="/cmdb/addgroup/">用户组管理</a>
+    </nav>
+    <div style="position: absolute;top:120px;width:84%;bottom:0;right: 0;background: #fff;left:350px;" class="role_list">
+        <form action="/cmdb/addgroup/" method="post">
+        <p><label style="text-align: right;display: inline-block;">新增用户组：</label><input style="display: inline-block" type="text" name="groupname"/></p>
+        <p><input type="submit" value="添加"/></p>
+    </form>
+    <h3>现有用户组</h3>
+    <ul>
+        {% for row in usertypes %}
+            <li style="line-height:30px;">{{ row.name }}<a href="/cmdb/deletegroup/{{ row.id }}">删除</a></li>
+        {% endfor %}
+    </ul>
+    </div>
+</body>
+
+</html>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import HttpResponse
 from django.views import View
+from cmdb import models
 import os
 # Create your views here.
 USER_LIST=[
@@ -25,7 +26,14 @@ def cmdb(request):
 class Login(View):
     def post(self,request):
         error_msg = ''
-        return render(request, 'login.html', {'error_msg': error_msg})
+        user = request.POST.get('user')
+        pwd = request.POST.get('pwd')
+        obj = models.UserInfo.objects.filter(username=user,pwd=pwd).first()
+        if obj:
+            return redirect('/cmdb/home/')
+        else:
+            error_msg = '用户名密码错误'
+            return render(request, 'login.html', {'error_msg': error_msg})
     def get(self,request):
         return render(request, 'login.html')
 
@@ -53,21 +61,19 @@ class Login(View):
 
 #CBV
 class Home(View):
-    def dispatch(self, request, *args, **kwargs):
-        print('before')
-        result = super(Home,self).dispatch(request, *args, **kwargs)
-        print('after')
-        return result
+    # def dispatch(self, request, *args, **kwargs):
+    #     print('before')
+    #     result = super(Home,self).dispatch(request, *args, **kwargs)
+    #     print('after')
+    #     return result
     def get(self,request):
-        print('get')
-        return render(request, 'home.html', {'user_list': USER_LIST})
+        # print('get')
+        user_list = models.UserInfo.objects.all()
+        return render(request, 'home.html', {'user_list': user_list})
     def post(self,request):
-        print('post')
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        gender = request.POST.get('gender')
-        USER_LIST.append({'username':name,'email':email,'gender':gender})
-        return render(request, 'home.html', {'user_list': USER_LIST})
+        # print('post')
+        user_list = models.UserInfo.objects.all()
+        return render(request, 'home.html', {'user_list': user_list})
 
 class Index(View):
     def post(self,request):
@@ -84,23 +90,76 @@ class Index(View):
 
 class Detail(View):
     def get(self,request,nid):
-        # nid = request.GET.get('nid')
-        detail_info = USER_DICT[int(nid)]
-        return render(request,'detail.html',{'detail_info':detail_info})
-from cmdb import models
+        obj = models.UserInfo.objects.filter(id=nid).first()
+        usertype = models.UserType.objects.filter(id=obj.user_type_id).first()
+        # detail_info = USER_DICT[int(nid)]
+        return render(request,'detail.html',{'user_info':obj,'user_type':usertype})
+
 class ORM(View):
     def get(self,request):
         #创建
-        # usertype = models.UserType.objects.create(name = '管理员')
+        # usertype = models.UserType.objects.create(name = 'admin')
         # models.UserInfo.objects.create(
         #     username = 'root',
         #     pwd = '123',
         #     email = 'liugenghao@sina.com',
         #     user_type = usertype
         # )
+        #修改
+        models.UserInfo.objects.filter(username='bill').update(pwd='111qqq')
         #查询
-        result = models.UserInfo.objects.all()
-        print(result)
-        # obj = models.UserInfo(username='Alex',user_type=1)
+        # usertype = models.UserType.objects.filter(name="admin").first()
+        #
+        #
+        # obj = models.UserInfo(username='Bill',email='bill@sina.com',user_type=usertype)
         # obj.save()
+        #删除
+        models.UserInfo.objects.filter(id=2).delete()
         return HttpResponse('orm')
+class AddUser(View):
+    def post(self,request):
+        username = request.POST.get('username')
+        pwd = request.POST.get('pwd')
+        email = request.POST.get('email')
+        usertype = request.POST.get('type')
+        usertype = models.UserType.objects.filter(name=usertype).first()
+        models.UserInfo(username=username,pwd=pwd,email=email,user_type=usertype).save()
+        return redirect('/cmdb/home/')
+    def get(self,request):
+        usertypes = models.UserType.objects.all()
+        users = models.UserInfo.objects.all()
+        return render(request,'adduser.html',{'usertypes':usertypes,'users':users})
+class AddGroup(View):
+    def post(self,request):
+        groupName = request.POST.get('groupname')
+        usertype = models.UserType.objects.create(name=groupName)
+        groups = models.UserType.objects.all()
+        return render(request, 'addgroup.html', {'usertypes': groups})
+    def get(self,request):
+        groups = models.UserType.objects.all()
+        # print(groups[0].name)
+        return render(request,'addgroup.html',{'usertypes':groups})
+class DeleteUser(View):
+    def get(self,request,id):
+        models.UserInfo.objects.filter(id=id).delete()
+        return redirect('/cmdb/adduser/')
+class DeleteGroup(View):
+    def get(self,request,id):
+        models.UserType.objects.filter(id=id).delete()
+        return redirect('/cmdb/addgroup/')
+
+class EditUser(View):
+    def post(self,request,*args):
+        id = request.POST.get('uid')
+        username = request.POST.get('username')
+        pwd = request.POST.get('pwd')
+        email = request.POST.get('email')
+        usertype = request.POST.get('type')
+        usertype = models.UserType.objects.filter(name=usertype).first()
+        models.UserInfo.objects.filter(id=id).update(username=username, pwd=pwd, email=email, user_type=usertype)
+        return redirect('/cmdb/adduser/')
+    def get(self,request,id):
+        user = models.UserInfo.objects.filter(id=id).first()
+        usertypes = models.UserType.objects.all()
+        usertype = models.UserType.objects.filter(id=user.user_type_id).first()
+        return render(request, 'edituser.html', {'user': user,'usertypes':usertypes,'usertype':usertype})

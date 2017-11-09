@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="margin:0;padding:0;overflow: hidden;">
+    <header style="position: absolute;top:0;height:120px;line-height:80px;width:100%;background:#eaeaea;">
+        <h1 style="margin-left:90px;">角色管理</h1>
+    </header>
+    <nav style="position: absolute;top:120px;bottom:0;left: 0;width: 16%;background: #ccc;text-align: center;">
+        <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/home/">用户列表</a>
+        <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/adduser/">用户管理</a>
+        <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/addgroup/">用户组管理</a>
+    </nav>
+    <div style="position: absolute;top:120px;width:84%;bottom:0;right: 0;background: #fff;left:350px;" class="role_list">
+        <form action="/cmdb/edituser/" method="post">
+            <input type="hidden" name="uid" value="{{ user.id }}">
+            <p><label style="text-align: right;display: inline-block;">用户名：</label><input style="display: inline-block" type="text" name="username" value="{{ user.username }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">密码：</label><input style="display: inline-block" type="text" name="pwd" value="{{ user.pwd }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">邮箱：</label><input style="display: inline-block" type="text" name="email" value="{{ user.email }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">用户类型：</label><select name="type">
+                {% for row in usertypes %}
+                    <option{% if row.name == usertype.name %}
+                        selected="selected"
+                    {% endif %}>{{ row.name }}</option>
+                {% endfor %}
+            </select></p>
+            <p><input type="submit" value="修改"/></p>
+        </form>
+    </div>
+</body>
+
+</html>
