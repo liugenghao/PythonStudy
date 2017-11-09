@@ -1,3 +1,4 @@
+__Author__ = 'Bill Lau'
 """DjangoTest URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,20 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url,include
-from django.contrib import admin
-
+from django.conf.urls import url
+from cmdb import views
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'cmdb/',include("cmdb.urls"))
+    url(r'^cmdb/', views.cmdb),
+    url(r'^login/',views.Login.as_view()),
+    url(r'^home/',views.Home.as_view()),
+    # url(r'^detail/', views.Detail.as_view()),
+    # url(r'^detail/(\d+).html', views.Detail.as_view()),
+    url(r'^detail/(?P<nid>\d+).html', views.Detail.as_view()),#(?P<nid>\d+)值固定传递给nid这个形参
+    url(r'^$',views.Index.as_view(),name='index'),
+    url(r'^orm/',views.ORM.as_view(),name='orm'),
 ]
-# urlpatterns = [
-#     url(r'^admin/', admin.site.urls),
-#     url(r'^cmdb/', views.cmdb),
-#     url(r'^login/',views.login),
-#     url(r'^home/',views.Home.as_view()),
-#     # url(r'^detail/', views.Detail.as_view()),
-#     # url(r'^detail/(\d+).html', views.Detail.as_view()),
-#     url(r'^detail/(?P<nid>\d+).html', views.Detail.as_view()),#(?P<nid>\d+)值固定传递给nid这个形参
-#     url(r'^',views.Index.as_view(),name='index'),
-# ]

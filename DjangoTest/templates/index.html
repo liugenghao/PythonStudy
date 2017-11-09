@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="{{ request.path_info }}" method="post">
+{#    <form action="{% url 'index' %}" method="post">#}
+        <p>名字：<input type="text" name="name"></p>
+        <p>邮箱：<input type="text" name="email"></p>
+        <p>性别：<input type="text" name="gender"></p>
+        <p><input type="submit" value="提交"></p>
+    </form>
+    <table>
+        {% for key,row in user_dict.items %}
+            <tr>
+                <td><a href="/detail/{{ key }}.html">{{ row.username }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
