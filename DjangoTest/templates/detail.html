@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href=/static/common.css>
+    <script language="JavaScript" src="/static/jquery-1.11.2.min.js"></script>
 </head>
-<body style="margin:0;padding:0;overflow: hidden;">
+<body>
+<div class="mask" hidden>
+            <form>
+            <input type="hidden" name="uid" value="{{ user_info.id }}">
+            <p><label style="text-align: right;display: inline-block;">用户名：</label><input style="display: inline-block" type="text" name="username" value="{{ user_info.username }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">密码：</label><input style="display: inline-block" type="text" name="pwd" value="{{ user_info.pwd }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">邮箱：</label><input style="display: inline-block" type="text" name="email" value="{{ user_info.email }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">性别：</label><input style="display: inline-block" type="text" name="gender" value="{{ user_info.gender }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">用户类型：</label><select name="type">
+                {% for row in user_types %}
+                    <option{% if row.name == user_info.user_type__name %}
+                        selected="selected"
+                    {% endif %}>{{ row.name }}</option>
+                {% endfor %}
+            </select></p>
+            <p style="margin-left:30px;"><button id="up">提交</button></p>
+        </form>
+        </div>
     <header style="position: absolute;top:0;height:120px;line-height:80px;width:100%;background:#eaeaea;">
         <h1 style="margin-left:90px;">角色管理</h1>
     </header>
@@ -13,12 +32,39 @@
         <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/adduser/">添加用户</a>
         <a style="display:block;margin-top:20px;" class="menu" href="/cmdb/addgroup/">添加用户组</a>
     </nav>
-    <div style="position: absolute;top:120px;width:84%;bottom:0;right: 0;background: #fff" class="role_list">
+    <div class="role_list">
         <h2 style="margin-left:30px;">{{  user_info.username }}详细信息</h2>
         <p style="margin-left:30px;">用户名：{{ user_info.username }}</p>
         <p style="margin-left:30px;">密码：{{ user_info.pwd }}</p>
         <p style="margin-left:30px;">邮箱：{{ user_info.email }}</p>
-        <p style="margin-left:30px;">用户类型：{{ user_type.name }}</p>
+        <p style="margin-left:30px;">性别：{{ user_info.gender }}</p>
+        <p style="margin-left:30px;">用户类型：{{ user_info.user_type__name }}</p>
+        <p style="margin-left:30px;"><button class="modify">修改</button></p>
     </div>
+<script>
+    $(function () {
+        $('.modify').click(function () {
+            $('.mask').show();
+        });
+
+
+        $('#up').click(function () {
+            var uid = $(".mask input[name='uid']").val();
+            var username = $(".mask input[name='username']").val();
+            var pwd = $(".mask input[name='pwd']").val();
+            var email = $(".mask input[name='email']").val();
+            var gender = $(".mask input[name='gender']").val();
+            var type = $(".mask select[name='type']").val();
+            $.ajax({
+                url:"/cmdb/ajax_test/" ,
+                type:'POST',
+                data:{'uid':uid,'username':username,'pwd':pwd,'email':email,'gender':gender,'type':type},
+                success:function () {
+                    alert(data);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -9,3 +9,24 @@ nav a{
     display: block;
     margin-top:30px;
 }
+.role_list{
+    position: absolute;
+    left:18%;
+    top:120px;
+}
+.mask{
+    position: fixed;
+    z-index: 9;
+    left:0;
+    top:100px;
+    width:100%;
+    heigt:900px;
+    background: #666;
+}
+.mask form{
+    width:300px;
+    position: absolute;
+    left:50%;
+    background: #fff;
+
+}

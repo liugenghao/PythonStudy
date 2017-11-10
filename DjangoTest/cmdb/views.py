@@ -90,10 +90,13 @@ class Index(View):
 
 class Detail(View):
     def get(self,request,nid):
-        obj = models.UserInfo.objects.filter(id=nid).first()
-        usertype = models.UserType.objects.filter(id=obj.user_type_id).first()
-        # detail_info = USER_DICT[int(nid)]
-        return render(request,'detail.html',{'user_info':obj,'user_type':usertype})
+        # obj = models.UserInfo.objects.filter(id=nid).first()
+        # usertype = models.UserType.objects.filter(id=obj.user_type_id).first()
+        # # detail_info = USER_DICT[int(nid)]
+        # return render(request, 'detail.html', {'user_info': obj, 'user_type': usertype})
+        user_types = models.UserType.objects.all()
+        obj = models.UserInfo.objects.filter(id=nid).values('id','username','pwd','gender','email','user_type__name').first()
+        return render(request,'detail.html',{'user_info':obj,'user_types':user_types})
 
 class ORM(View):
     def get(self,request):
@@ -122,8 +125,9 @@ class AddUser(View):
         pwd = request.POST.get('pwd')
         email = request.POST.get('email')
         usertype = request.POST.get('type')
+        gender = request.POST.get('gender')
         usertype = models.UserType.objects.filter(name=usertype).first()
-        models.UserInfo(username=username,pwd=pwd,email=email,user_type=usertype).save()
+        models.UserInfo(username=username,pwd=pwd,email=email,gender=gender,user_type=usertype).save()
         return redirect('/cmdb/home/')
     def get(self,request):
         usertypes = models.UserType.objects.all()
@@ -154,12 +158,26 @@ class EditUser(View):
         username = request.POST.get('username')
         pwd = request.POST.get('pwd')
         email = request.POST.get('email')
+        gender = request.POST.get('gender')
         usertype = request.POST.get('type')
         usertype = models.UserType.objects.filter(name=usertype).first()
-        models.UserInfo.objects.filter(id=id).update(username=username, pwd=pwd, email=email, user_type=usertype)
+        models.UserInfo.objects.filter(id=id).update(username=username, pwd=pwd, gender=gender, email=email, user_type=usertype)
         return redirect('/cmdb/adduser/')
+        # return HttpResponse('Done')
     def get(self,request,id):
         user = models.UserInfo.objects.filter(id=id).first()
         usertypes = models.UserType.objects.all()
         usertype = models.UserType.objects.filter(id=user.user_type_id).first()
         return render(request, 'edituser.html', {'user': user,'usertypes':usertypes,'usertype':usertype})
+
+def ajax_test(request):
+    id = request.POST.get('uid')
+    username = request.POST.get('username')
+    pwd = request.POST.get('pwd')
+    email = request.POST.get('email')
+    gender = request.POST.get('gender')
+    usertype = request.POST.get('type')
+    usertype = models.UserType.objects.filter(name=usertype).first()
+    models.UserInfo.objects.filter(id=id).update(username=username, pwd=pwd, gender=gender, email=email,
+                                                 user_type=usertype)
+    return HttpResponse('Done')

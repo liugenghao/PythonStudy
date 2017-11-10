@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^deleteuser/(\d+)', views.DeleteUser.as_view(), name='deleteuser'),
     url(r'^deletegroup/(\d+)', views.DeleteGroup.as_view(), name='deletegroup'),
     url(r'^edituser/(\d*)', views.EditUser.as_view(), name='edituser'),
+    url(r'^ajax_test/', views.ajax_test, name='ajax_test'),
 ]

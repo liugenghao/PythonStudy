@@ -19,6 +19,7 @@
             <p><label style="text-align: right;display: inline-block;">用户名：</label><input style="display: inline-block" type="text" name="username" value="{{ user.username }}"/></p>
             <p><label style="text-align: right;display: inline-block;">密码：</label><input style="display: inline-block" type="text" name="pwd" value="{{ user.pwd }}"/></p>
             <p><label style="text-align: right;display: inline-block;">邮箱：</label><input style="display: inline-block" type="text" name="email" value="{{ user.email }}"/></p>
+            <p><label style="text-align: right;display: inline-block;">性别：</label><input style="display: inline-block" type="text" name="gender" value="{{ user.gender }}"/></p>
             <p><label style="text-align: right;display: inline-block;">用户类型：</label><select name="type">
                 {% for row in usertypes %}
                     <option{% if row.name == usertype.name %}
