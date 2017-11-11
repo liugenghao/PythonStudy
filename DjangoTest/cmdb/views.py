@@ -67,7 +67,7 @@ class Home(View):
     #     print('after')
     #     return result
     def get(self,request):
-        # print('get')
+        print('get')
         user_list = models.UserInfo.objects.all()
         return render(request, 'home.html', {'user_list': user_list})
     def post(self,request):

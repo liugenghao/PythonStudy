@@ -1,0 +1,60 @@
+{% extends '_layout_index.html' %}
+{% block title %}用户组列表{% endblock %}
+{% block content %}
+    <div class="mask" hidden>
+        <div class="detailPanel">
+            <table>
+                <tr><td><label>用户组名称：</label></td><td><input type="text" name="typename" /></td></tr>
+                <tr><td></td><td><a class="button" id="submit">提交</a><a class="button" id="cancel">取消</a></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <button id="adduser">添加用户组</button>
+    <table class="userinfo">
+        {% for row in types %}
+            <tr>
+                <td hidden>{{ row.id }}</td>
+                <td>{{ row.name }}</td>
+                <td><a class="modify" href="javascript:void(0);">修改</a><a class='delete' href="javascript:void(0);">删除</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <script>
+        $(function () {
+            $('#adduser').click(function () {
+               $('.mask').show();
+            });
+            $('#cancel').click(function () {
+               $('.mask').hide();
+            });
+            $('#submit').click(function () {
+                var typename = $('input[name="typename"]').val();
+               $.ajax({
+                   url: "/app01/addUserType/",
+                   type: "POST",
+                   data: {'typename':typename},
+                   success:function (data) {
+                       $('.mask').hide();
+                       window.location.reload()
+                   }
+               });
+            });
+            $('.delete').each(function () {
+                $(this).click(function () {
+                    var id = $(this).parent().parent().children().first().text()
+                    $.ajax({
+                        type:'POST',
+                        url:'/app01/deleteUserType/',
+                        data:{'id':id},
+                        success:function () {
+                            $('.mask').hide();
+                            window.location.reload()
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}

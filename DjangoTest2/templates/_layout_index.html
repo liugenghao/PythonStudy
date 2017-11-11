@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <script language="JavaScript" src="/static/js/jquery-1.11.2.min.js"></script>
+    <title>管理系统</title>
+</head>
+<body>
+    <header>
+        <img src="/static/img/sys.png"><h1>管理系统</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/app01/userInfo/">用户列表</a></li>
+            <li><a href="/app01/userTypeInfo/">用户组列表</a></li>
+        </ul>
+    </nav>
+    <div class="cont">
+        <h2>{% block title %}{% endblock %}</h2>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

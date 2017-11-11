@@ -1,0 +1,70 @@
+{% extends '_layout_index.html' %}
+{% block title %}用户列表{% endblock %}
+{% block content %}
+    <div class="mask" hidden>
+        <div class="detailPanel">
+            <table>
+                <tr><td><label>用户名：</label></td><td><input type="text" name="username" /></td></tr>
+                <tr><td><label>密码：</label></td><td><input type="text" name="pwd" /></td></tr>
+                <tr><td><label>邮箱：</label></td><td><input type="text" name="email" /></td></tr>
+                <tr><td><label>性别：</label></td><td><input type="text" name="gender" /></td></tr>
+                <tr><td><label>用户类别：</label></td><td><select name="user_type">{% for row in types %}<option>{{ row.name }}</option>{% endfor %}</select></td></tr>
+                <tr><td></td><td><a class="button" id="submit">提交</a><a class="button" id="cancel">取消</a></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <button id="adduser">添加用户</button>
+    <table class="userinfo">
+        <tr>
+            <th>用户名</th>
+            <th>用户类型</th>
+            <th>密码</th>
+            <th>邮箱</th>
+            <th>性别</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>操作</th>
+        </tr>
+        {% for row in users %}
+            <tr>
+                <td hidden>row.id</td>
+                <td>{{ row.username }}</td>
+                <td>{{ row.user_type__name }}</td>
+                <td>{{ row.pwd }}</td>
+                <td>{{ row.email }}</td>
+                <td>{{ row.gender }}</td>
+                <td>{{ row.createTime }}</td>
+                <td>{{ row.updateTime }}</td>
+                <td><a class="modify" href="javascript:void(0);">修改</a><a class='delete' href="javascript:void(0);">删除</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <script>
+        $(function () {
+            $('#adduser').click(function () {
+               $('.mask').show();
+            });
+            $('#cancel').click(function () {
+               $('.mask').hide();
+            });
+            $('#submit').click(function () {
+                var username = $('input[name="username"]').val();
+                var pwd = $('input[name="pwd"]').val();
+                var email = $('input[name="email"]').val();
+                var gender = $('input[name="gender"]').val();
+                var user_type = $('select[name="user_type"]').val();
+               $.ajax({
+                   url: "/app01/addUser/",
+                   type: "POST",
+                   data: {'username':username,'pwd':pwd,'email':email,'gender':gender,'user_type':user_type},
+                   success:function (data) {
+                       $('.mask').hide();
+                       window.location.reload()
+                   }
+               });
+            });
+        });
+    </script>
+{% endblock %}
