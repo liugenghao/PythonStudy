@@ -1,0 +1,15 @@
+{% for row in users %}
+    <tr>
+        <td hidden>{{ row.id}}</td>
+        <td>{{ row.username }}</td>
+        <td>{{ row.user_type__name }}</td>
+        <td>{{ row.pwd }}</td>
+        <td>{{ row.email }}</td>
+        <td>{{ row.gender }}</td>
+        <td>{{ row.createTime }}</td>
+        <td>{{ row.updateTime }}</td>
+        <td><a class="modify" href="javascript:void(0);">修改</a><a class='delete' href="javascript:void(0);">删除</a></td>
+    </tr>
+{% endfor %}
+
+

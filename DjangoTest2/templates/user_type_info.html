@@ -1,5 +1,5 @@
 {% extends '_layout_index.html' %}
-{% block title %}用户组列表{% endblock %}
+
 {% block content %}
     <div class="mask" hidden>
         <div class="detailPanel">
@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <button id="adduser">添加用户组</button>
+    <a id="adduser" href="javascript:void(0);">添加用户组</a>
     <table class="userinfo">
         {% for row in types %}
             <tr>
@@ -21,6 +21,8 @@
         {% endfor %}
 
     </table>
+{% endblock %}
+{% block js %}
     <script>
         $(function () {
             $('#adduser').click(function () {
@@ -43,16 +45,19 @@
             });
             $('.delete').each(function () {
                 $(this).click(function () {
-                    var id = $(this).parent().parent().children().first().text()
-                    $.ajax({
-                        type:'POST',
-                        url:'/app01/deleteUserType/',
-                        data:{'id':id},
-                        success:function () {
-                            $('.mask').hide();
-                            window.location.reload()
-                        }
-                    });
+                    var c = confirm('确定要删除该角色？');
+                    if(c==true){
+                         var id = $(this).parent().parent().children().first().text()
+                        $.ajax({
+                            type:'POST',
+                            url:'/app01/deleteUserType/',
+                            data:{'id':id},
+                            success:function () {
+                                $('.mask').hide();
+                                window.location.reload()
+                            }
+                        });
+                    }
                 });
             });
         });

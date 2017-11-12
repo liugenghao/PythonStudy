@@ -1,26 +1,31 @@
+{% load pagetag %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/common.css">
+    {% block css %}{% endblock %}
     <title>管理系统</title>
 </head>
 <body>
     <header>
         <img src="/static/img/sys.png"><h1>管理系统</h1>
+        <h2>{{ loginUser }}<a id="logout" href="/app01/logout/">注销</a></h2>
     </header>
     <nav>
         <ul>
+{#            <li><a href="/app01/userInfo/">{{ "good"|test2:"one"}}</a></li>#}
             <li><a href="/app01/userInfo/">用户列表</a></li>
             <li><a href="/app01/userTypeInfo/">用户组列表</a></li>
         </ul>
     </nav>
-    <script language="JavaScript" src="/static/js/jquery-1.11.2.min.js"></script>
+
     <div class="cont">
-        <h2>{% block title %}{% endblock %}</h2>
         {% block content %}{% endblock %}
     </div>
-
+    <script language="JavaScript" src="/static/js/jquery-1.11.2.min.js"></script>
+    <script language="JavaScript" src="/static/js/jquery.cookie.js"></script>
+    {% block js %}{% endblock %}
 </body>
 </html>
