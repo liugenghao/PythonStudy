@@ -34,7 +34,7 @@
             $('#submit').click(function () {
                 var typename = $('input[name="typename"]').val();
                $.ajax({
-                   url: "/app01/addUserType/",
+                   url: "/addUserType/",
                    type: "POST",
                    data: {'typename':typename},
                    success:function (data) {
@@ -50,7 +50,7 @@
                          var id = $(this).parent().parent().children().first().text()
                         $.ajax({
                             type:'POST',
-                            url:'/app01/deleteUserType/',
+                            url:'/deleteUserType/',
                             data:{'id':id},
                             success:function () {
                                 $('.mask').hide();

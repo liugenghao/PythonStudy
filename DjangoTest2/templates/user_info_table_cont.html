@@ -1,6 +1,7 @@
 {% for row in users %}
     <tr>
         <td hidden>{{ row.id}}</td>
+        <td class="itemID"></td>
         <td>{{ row.username }}</td>
         <td>{{ row.user_type__name }}</td>
         <td>{{ row.pwd }}</td>

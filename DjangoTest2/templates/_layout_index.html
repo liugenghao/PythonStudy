@@ -11,13 +11,13 @@
 <body>
     <header>
         <img src="/static/img/sys.png"><h1>管理系统</h1>
-        <h2>{{ loginUser }}<a id="logout" href="/app01/logout/">注销</a></h2>
+        <h2>{{ request.session.username }}<a id="logout" href="/logout/">注销</a></h2>
     </header>
     <nav>
         <ul>
-{#            <li><a href="/app01/userInfo/">{{ "good"|test2:"one"}}</a></li>#}
-            <li><a href="/app01/userInfo/">用户列表</a></li>
-            <li><a href="/app01/userTypeInfo/">用户组列表</a></li>
+{#            <li><a href="/userInfo/">{{ "good"|test2:"one"}}</a></li>#}
+            <li><a href="/userInfo/">用户列表</a></li>
+            <li><a href="/userTypeInfo/">用户组列表</a></li>
         </ul>
     </nav>
 

@@ -20,7 +20,7 @@ def circle_page(curr_page,max_page,page_range):
             start_num = int(curr_page/page_range)*page_range + 1
         else:#可以除尽时的初始值
             start_num = curr_page - page_range + 1
-        a_pages.append('<li><a href="/app01/userInfo/?p=%s">...</a></li>' % (start_num-1))  # 省略号，直接跳转到上一个范围
+        a_pages.append('<li><a href="/userInfo/?p=%s">...</a></li>' % (start_num-1))  # 省略号，直接跳转到上一个范围
 
     end_num = start_num+page_range#末尾值
     if end_num > max_page:#末位數如果小于页面总数则等于页面最大数
@@ -28,12 +28,12 @@ def circle_page(curr_page,max_page,page_range):
 
     for i in range(start_num,end_num):
         if i == curr_page:
-            temp = '<li class="actived"><a href="/app01/userInfo/?p=%s">%s</a></li>'%(i,i)
+            temp = '<li class="actived"><a href="/userInfo/?p=%s">%s</a></li>'%(i,i)
         else:
-            temp = '<li><a href="/app01/userInfo/?p=%s">%s</a></li>' % (i, i)
+            temp = '<li><a href="/userInfo/?p=%s">%s</a></li>' % (i, i)
         a_pages.append(temp)
     if end_num < max_page:
-        a_pages.append( '<li><a href="/app01/userInfo/?p=%s">...</a></li>' % (end_num))#省略号，直接跳转岛下一个范围
+        a_pages.append( '<li><a href="/userInfo/?p=%s">...</a></li>' % (end_num))#省略号，直接跳转岛下一个范围
     page_str = ''.join(a_pages)
     return format_html(page_str)
 

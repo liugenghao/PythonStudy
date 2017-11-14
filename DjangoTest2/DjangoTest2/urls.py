@@ -16,9 +16,20 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from django.views.generic.base import RedirectView
+from app01 import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^favicon.ico$',RedirectView.as_view(url=r'static/favicon.ico')),
-    url(r'^app01/',include('app01.urls'))
+    # url(r'^',include('app01.urls'))
+    url(r'^$',views.login),
+    url(r'^login/',views.login,name='login'),
+    url(r'^logout/',views.logout,name='logout'),
+    url(r'^userInfo/',views.userInfo,name='userInfo'),
+    url(r'^addUser/',views.addUser,name='addUser'),
+    url(r'^userTypeInfo/', views.userTypeInfo, name='userTypeInfo'),
+    url(r'^addUserType/', views.addUserType, name='addUserType'),
+    url(r'^deleteUserType/', views.deleteUserType, name='deleteUserType'),
+    url(r'^deleteUser/', views.deleteUser, name='deleteUser'),
+    url(r'^modifyUser/', views.modifyUser, name='modifyUser'),
 ]
