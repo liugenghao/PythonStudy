@@ -47,22 +47,37 @@ def logout(request):
     request.session.clear()
     return redirect('/login/')
 def bookInfo(request):
+    import requests
+    import re
+    # content = requests.get('http://book.douban.com').text
+    # # print(content)
+    # regex = '<li.*?cover.*?href="(.*?)".*?title="(.*?)".*?"author">\s*(.*?)\s*<.*?="abstract">\s*(.*?)\s*</p'
+    # result = re.findall(regex, content, re.S)
+    # for item in result:
+    #     name = item[1]
+    #     author = re.sub('&nbsp;/&nbsp','',item[2])
+    #     url = item[0]
+    #     abstract = item[3]
+    #     author = models.Authors.objects.create(name=author)
+    #     book = models.Books.objects.create(name=name,url=url,abstract=abstract)
+    #     models.author_m2m_book.objects.create(aobj_id=author.id,bobj_id=book.id)
+
     itemNum = request.COOKIES.get('pageNum', 10)  # 每页信息条数
     # print('pageNum:',pageNum)
     pageRange = 8  # 分页范围
     types = models.UserType.objects.all()
     # for i in range(390):
     #     models.UserInfo.objects.create(username='liugenghao'+str(i),pwd='123qwe'+str(i),email='liugenghao'+str(i)+'@sinc.com',gender='男',user_type_id=1)
-    users = models.Books.objects.values('id', 'name', 'url', 'pwd', 'abstract', 'createTime',
-                                           'updateTime').order_by("id")
-    p_obj = Paginator(users, itemNum)  # 分页
-    restPages = p_obj.num_pages - p_obj.num_pages % pageRange + 1  # 最后一面剩余页数
+    books = models.Books.objects.values('id', 'name', 'url', 'abstract', 'createTime',
+                                           'updateTime','author_m2m_book__aobj__name').order_by("id")
+    p_obj = Paginator(books, itemNum)  # 分页
+    restPages = p_obj.num_pages - p_obj.num_pages % (pageRange+1)  # 最后一面之前的页数
     p = request.GET.get('p', 1)
     if int(p) > p_obj.num_pages:  # 防止页码超过阈值
         p = p_obj.num_pages
-    users = p_obj.page(p)
-    return render(request, 'user_info.html',
-                  {'users': users, 'types': types, 'pageRange': pageRange, 'restPages': restPages, 'itemNum': itemNum})
+    books = p_obj.page(p)
+    return render(request, 'book_info.html',
+                  {'books': books,  'pageRange': pageRange, 'restPages': restPages, 'itemNum': itemNum})
 @csrf_protect
 @auth
 def userInfo(request):
@@ -78,7 +93,7 @@ def userInfo(request):
     #     models.UserInfo.objects.create(username='liugenghao'+str(i),pwd='123qwe'+str(i),email='liugenghao'+str(i)+'@sinc.com',gender='男',user_type_id=1)
     users = models.UserInfo.objects.values('id','username','user_type__name','pwd','email','gender','createTime','updateTime').order_by("id")
     p_obj = Paginator(users,itemNum)#分页
-    restPages =  p_obj.num_pages - p_obj.num_pages % pageRange + 1# 最后一面剩余页数
+    restPages =  p_obj.num_pages - p_obj.num_pages % pageRange + 1# 最后一面剩余前的页数
     p = request.GET.get('p',1)
     if int(p) > p_obj.num_pages:#防止页码超过阈值
         p = p_obj.num_pages

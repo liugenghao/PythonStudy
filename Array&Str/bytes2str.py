@@ -4,3 +4,6 @@ print(str)
 
 
 print(str.decode('utf-8'))
+
+
+print(5%6)

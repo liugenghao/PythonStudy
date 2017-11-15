@@ -2,12 +2,12 @@
     <tr>
         <td hidden>{{ row.id}}</td>
         <td class="itemID"></td>
-        <td>{{ row.name }}</td>
-        <td>{{ row.url }}</td>
-        <td>{{ row.abstract }}</td>
+        <td><a title="{{ row.name}}" target="_blank" href="{{ row.url}}">{% if row.name|length > 15 %}《{{ row.name|slice:'15'}}...》{% else %}《{{ row.name}}》{% endif %}</a></td>
+        <td>{{ row.author_m2m_book__aobj__name }}</td>
+{#        <td><a target="_blank" href="{{ row.url}}">{{ row.url}}</a></td>#}
+        <td>{{ row.abstract|slice:'45' }}...</td>
         <td>{{ row.createTime }}</td>
         <td>{{ row.updateTime }}</td>
-        <td><a class="modify" href="javascript:void(0);">修改</a><a class='delete' href="javascript:void(0);">删除</a></td>
     </tr>
 {% endfor %}
 
