@@ -1,0 +1,14 @@
+{% for row in books %}
+    <tr>
+        <td hidden>{{ row.id}}</td>
+        <td class="itemID"></td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.url }}</td>
+        <td>{{ row.abstract }}</td>
+        <td>{{ row.createTime }}</td>
+        <td>{{ row.updateTime }}</td>
+        <td><a class="modify" href="javascript:void(0);">修改</a><a class='delete' href="javascript:void(0);">删除</a></td>
+    </tr>
+{% endfor %}
+
+

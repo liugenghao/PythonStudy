@@ -1,0 +1,177 @@
+{% extends '_layout_index.html' %}
+{% load pagetag %}
+
+{% block content %}
+{#    <div class="mask" hidden>#}
+{#        <div class="detailPanel">#}
+{#            <table>#}
+{#                <tr><td><label>用户名：</label></td><td><input type="text" name="username" /></td></tr>#}
+{#                <tr><td><label>密码：</label></td><td><input type="text" name="pwd" /></td></tr>#}
+{#                <tr><td><label>邮箱：</label></td><td><input type="text" name="email" /></td></tr>#}
+{#                <tr><td><label>性别：</label></td><td><input type="text" name="gender" /></td></tr>#}
+{#                <tr><td><label>用户类别：</label></td><td><select name="user_type">{% for row in types %}<option>{{ row.name }}</option>{% endfor %}</select></td></tr>#}
+{#                <tr><td></td><td><a class="button" id="submit">提交</a><a class="button" id="cancel">取消</a></td></tr>#}
+{#            </table>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <a id="adduser" href="javascript:void(0);">添加用户</a>#}
+    <table class="userinfo">
+        <tr>
+            <th>序号</th>
+            <th>书名</th>
+            <th>作者</th>
+            <th>详情地址</th>
+            <th>摘要</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>操作</th>
+        </tr>
+        {% include 'book_info_table_cont.html' %}
+    </table>
+    <div class="pagination">
+        <select id="pageCount">
+            <option value="5">每页5条</option>
+            <option value="10">每页10条</option>
+            <option value="15">每页15条</option>
+        </select>
+        <ul class="pagelinks">
+        {#        <li><a href="/userInfo/?p=1">1</a></li>#}
+        {#        <li><a href="userInfo/?p=2">2</a></li>#}
+            {% if users.number > pageRange %}
+                <li><a href="/userInfo/?p=1">首页</a></li>'
+            {% endif %}
+            {% if users.has_previous %}
+                <li><a href="/userInfo/?p={{ users.previous_page_number }}">上一页</a></li>
+            {% endif %}
+            {% circle_page users.number users.paginator.num_pages pageRange %}
+            {% if users.has_next %}
+                <li><a href="/userInfo/?p={{ users.next_page_number }}">下一页</a></li>
+            {% endif %}
+            {% if users.number < restPages %}
+                <li><a href="/userInfo/?p={{ users.paginator.num_pages }}">尾页</a></li>'
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        function addTableItemID() {//添加列表序号
+{#            var temp = window.location.search#}
+{#            var currentPage = temp.replace(/[^0-9]/ig,"");#}
+            var curentPage = {{ users.number }}//当前页码
+            var itemsNum = {{ itemNum }}//每页条数
+            $('.itemID').each(function (i) {
+                $(this).text((curentPage-1)*itemsNum+i+1)
+            });
+        }
+        var csrftoken = $.cookie('csrftoken')
+        function csrfSafeMethod(method) {
+            return(/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({//对ajax做配置，所有ajax传输前加入csrf秘钥
+                beforeSend:function (xhr,settings) {
+                    if(!csrfSafeMethod(settings.type)&&this.crossDomain) {
+                        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+                    }
+                }
+            });
+        $(function () {
+            addTableItemID()
+            var itemNum = {{ itemNum }};
+            $('#pageCount').val(itemNum);//设置分页信息数
+            var flag = '';
+            var uid = 0;
+{#            $('#adduser').click(function () {#}
+{#                flag = 'add'#}
+{#               $('.mask').show();#}
+{#            });#}
+            $('#cancel').click(function () {
+               $('.mask').hide();
+            });
+{#            $('#submit').click(function () {#}
+{#                var username = $('input[name="username"]').val();#}
+{#                var pwd = $('input[name="pwd"]').val();#}
+{#                var email = $('input[name="email"]').val();#}
+{#                var gender = $('input[name="gender"]').val();#}
+{#                var user_type = $('select[name="user_type"]').val();#}
+{#                if (flag == 'add'){#}
+{#                    $.ajax({#}
+{#                       url: "/addUser/",#}
+{#                       type: "POST",#}
+{#                       data: {'username':username,'pwd':pwd,'email':email,'gender':gender,'user_type':user_type},#}
+{#                       success:function (data) {#}
+{#                           $('.mask').hide();#}
+{#                           window.location.reload()#}
+{#                       }#}
+{#                    });#}
+{#                }#}
+{#                if (flag=='modify'){#}
+{#                    $.ajax({#}
+{#                        url: "/modifyUser/",#}
+{#                        type: "POST",#}
+{#                        data: {'id':uid,'username':username,'pwd':pwd,'email':email,'gender':gender,'user_type':user_type},#}
+{#                       success:function (data) {#}
+{#                           $('.mask').hide();#}
+{#                           window.location.reload()#}
+{#                       }#}
+{#                    });#}
+{#                }#}
+{##}
+{#            });#}
+            $('.delete').each(function () {
+                $(this).click(function () {
+                    var name = $(this).parent().parent().children().eq(2).text();
+                    var r = confirm('确定要删除：'+name+"？")
+                    if (r==true){
+                        var id = $(this).parent().parent().children().first().text();
+                        $.ajax({
+                           url: "/deleteUser/",
+                           type: "POST",
+                           data: {'id':id},
+                           success:function (data) {
+{#                               alert(data)#}
+                               $('.mask').hide();
+                               window.location.reload()
+                           }
+                       });
+                    }
+                });
+            });
+            $('.modify').each(function () {
+                $(this).click(function () {
+                    uid = $(this).parent().parent().children().eq(0).text();
+                    var name = $(this).parent().parent().children().eq(1).text();
+                    var pwd = $(this).parent().parent().children().eq(3).text();
+                    var email = $(this).parent().parent().children().eq(4).text();
+                    var gender = $(this).parent().parent().children().eq(5).text();
+                    var user_type = $(this).parent().parent().children().eq(2).text();
+                    $('input[name="username"]').val(name);
+                    $('input[name="pwd"]').val(pwd);
+                    $('input[name="email"]').val(email);
+                    $('input[name="gender"]').val(gender);
+                    $('select[name="user_type"]').val(user_type);
+                    flag = 'modify'
+                    $('.mask').show();
+                    if (r==true){
+                        var id = $(this).parent().parent().children().first().text();
+                        $.ajax({
+                           url: "/deleteUser/",
+                           type: "POST",
+                           data: {'id':id},
+                           success:function (data) {
+{#                               alert(data)#}
+                               $('.mask').hide();
+                               window.location.reload()
+                           }
+                       });
+                    }
+                });
+            });
+            $('#pageCount').change(function () {
+                $.cookie('pageNum',$(this).val());
+                window.location.reload();
+            });
+        });
+    </script>
+{% endblock %}

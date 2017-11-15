@@ -46,7 +46,23 @@ def logout(request):
     # del request.session['is_login']
     request.session.clear()
     return redirect('/login/')
-
+def bookInfo(request):
+    itemNum = request.COOKIES.get('pageNum', 10)  # 每页信息条数
+    # print('pageNum:',pageNum)
+    pageRange = 8  # 分页范围
+    types = models.UserType.objects.all()
+    # for i in range(390):
+    #     models.UserInfo.objects.create(username='liugenghao'+str(i),pwd='123qwe'+str(i),email='liugenghao'+str(i)+'@sinc.com',gender='男',user_type_id=1)
+    users = models.Books.objects.values('id', 'name', 'url', 'pwd', 'abstract', 'createTime',
+                                           'updateTime').order_by("id")
+    p_obj = Paginator(users, itemNum)  # 分页
+    restPages = p_obj.num_pages - p_obj.num_pages % pageRange + 1  # 最后一面剩余页数
+    p = request.GET.get('p', 1)
+    if int(p) > p_obj.num_pages:  # 防止页码超过阈值
+        p = p_obj.num_pages
+    users = p_obj.page(p)
+    return render(request, 'user_info.html',
+                  {'users': users, 'types': types, 'pageRange': pageRange, 'restPages': restPages, 'itemNum': itemNum})
 @csrf_protect
 @auth
 def userInfo(request):
@@ -113,3 +129,6 @@ def modifyUser(request):
     user.user_type = models.UserType.objects.filter(name=user_type).first()
     user.save()
     return HttpResponse('修改完毕')
+
+
+

@@ -16,10 +16,14 @@ class UserInfo(models.Model):
 
 class Books(models.Model):
     name = models.CharField(max_length=64)
+    url = models.CharField(max_length=256)
+    abstract = models.TextField(max_length=500)
+    createTime = models.DateField(auto_now_add=True)
+    updateTime = models.DateField(auto_now=True)
 
-class Author(models.Model):
+class Authors(models.Model):
     name = models.CharField(max_length=32)
 
 class author_m2m_book(models.Model):
-    aobj = models.ForeignKey(to='Author',to_field='id')
+    aobj = models.ForeignKey(to='Authors',to_field='id')
     bobj = models.ForeignKey(to='Books',to_field='id')

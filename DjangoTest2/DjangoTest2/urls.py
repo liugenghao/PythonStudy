@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^deleteUserType/', views.deleteUserType, name='deleteUserType'),
     url(r'^deleteUser/', views.deleteUser, name='deleteUser'),
     url(r'^modifyUser/', views.modifyUser, name='modifyUser'),
+    url(r'^bookInfo/',views.bookInfo,name='bookInfo')
 ]
