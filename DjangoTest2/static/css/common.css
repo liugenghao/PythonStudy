@@ -197,6 +197,12 @@ header h2{
     line-height:45px;
     border-bottom: 1px dashed rgba(255,255,255,.2);
 }
+.cont .userinfo a{
+    color:#ccc;
+}
+.cont .userinfo a:hover{
+    color:#fff;
+}
 #adduser{
     display: inline-block;
     border-radius: 10px;
