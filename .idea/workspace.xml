@@ -6,17 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/MysqlOperation/createWithMetaData.py" line="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f104fa4-cd76-48ff-b458-b52707a7cf2e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DjangoTest2/app01/migrations/0001_initial.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Array&amp;Str/bytes2str.py" afterPath="$PROJECT_DIR$/Array&amp;Str/bytes2str.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DjangoTest2/app01/templatetags/pagetag.py" afterPath="$PROJECT_DIR$/DjangoTest2/app01/templatetags/pagetag.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DjangoTest2/app01/views.py" afterPath="$PROJECT_DIR$/DjangoTest2/app01/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DjangoTest2/static/css/common.css" afterPath="$PROJECT_DIR$/DjangoTest2/static/css/common.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DjangoTest2/templates/book_info.html" afterPath="$PROJECT_DIR$/DjangoTest2/templates/book_info.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DjangoTest2/templates/book_info_table_cont.html" afterPath="$PROJECT_DIR$/DjangoTest2/templates/book_info_table_cont.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/doubanBooks.py" afterPath="$PROJECT_DIR$/crawler/doubanBooks.py" />
-    </list>
+    <list default="true" id="1f104fa4-cd76-48ff-b458-b52707a7cf2e" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -273,8 +263,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1964" />
-    <option name="y" value="51" />
+    <option name="x" value="1632" />
+    <option name="y" value="28" />
     <option name="width" value="1938" />
     <option name="height" value="1048" />
   </component>
@@ -668,13 +658,13 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1964" y="51" width="1938" height="1048" extended-state="1" />
+    <frame x="1632" y="28" width="1938" height="1048" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27848774" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3654267" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3654267" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32849163" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
