@@ -1,4 +1,5 @@
 __Author__ = 'Bill Lau'
+from multiprocessing import Pool
 import re
 import json
 import requests
@@ -26,10 +27,10 @@ def parse_one_page(html):
             'score':item[5]+item[6]
         }
 def write_to_file(content):
-    with open('maoyan.txt','a') as f:
-        f.write(json.dumps(content)+'\n')
-def main():
-    url = 'http://maoyan.com/board/4?'
+    with open('maoyan.txt','a',encoding='utf-8') as f:
+        f.write(json.dumps(content,ensure_ascii=False)+'\n')
+def main(offset):
+    url = 'http://maoyan.com/board/4?offset='+str(offset)
     html = get_one_page(url)
     # print(html)
     for item in parse_one_page(html):
@@ -37,6 +38,9 @@ def main():
         write_to_file(item)
 
 if __name__ == '__main__':
-    main()
+    # for i in range(10):
+    #     main(i*10)
+    pool = Pool()
+    pool.map(main,[i*10 for i in range(10)])
 # f = open('maoyan.txt','w')
 # f.write(content)
