@@ -9,6 +9,8 @@ register = template.Library()
 @register.simple_tag
 #分页curr_page：当前页面值，max_page：总页面数，page_range：分页范围
 def circle_page(curr_page,max_page,page_range,url):
+    if max_page == 1:
+        return ''
     if max_page < page_range:
         page_range = max_page
     a_pages = []

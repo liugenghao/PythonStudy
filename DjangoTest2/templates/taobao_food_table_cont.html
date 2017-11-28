@@ -1,0 +1,15 @@
+{% for row in food %}
+    <tr>
+        <td hidden>{{ row.id}}</td>
+        <td class="itemID"></td>
+        <td>{{ row.title }}</td>
+{#        <td><a target="_blank" href="{{ row.url}}">{{ row.url}}</a></td>#}
+        <td>{{ row.shopname }}</td>
+        <td>{{ row.location }}</td>
+        <td>{{ row.deal }}</td>
+        <td>{{ row.price }}</td>
+        <td><a title="{{ row.image_url}}" target="_blank" href="{{ row.image_url}}">{% if row.image_url|length > 15 %}《{{ row.image_url|slice:'15'}}...》{% else %}《{{ row.image_url}}》{% endif %}</a></td>
+    </tr>
+{% endfor %}
+
+

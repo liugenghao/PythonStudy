@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^favicon.ico$',RedirectView.as_view(url=r'static/favicon.ico')),
     # url(r'^',include('app01.urls'))
-    url(r'^$',views.login),
+    url(r'^$',views.bookInfo),
     url(r'^login/',views.login,name='login'),
     url(r'^logout/',views.logout,name='logout'),
     url(r'^userInfo/',views.userInfo,name='userInfo'),
@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^deleteUserType/', views.deleteUserType, name='deleteUserType'),
     url(r'^deleteUser/', views.deleteUser, name='deleteUser'),
     url(r'^modifyUser/', views.modifyUser, name='modifyUser'),
-    url(r'^bookInfo/',views.bookInfo,name='bookInfo')
+    url(r'^bookInfo/',views.bookInfo,name='bookInfo'),
+    url(r'^taobaoFood/', views.taobaoFood, name='taobaoFood')
 ]

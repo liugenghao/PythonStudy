@@ -1,0 +1,99 @@
+{% extends '_layout_index.html' %}
+{% load pagetag %}
+
+{% block content %}
+
+    <a class="startCrawler" href="javascript:void(0);">开始抓取</a>
+    <table class="userinfo">
+        <tr>
+            <th>序号</th>
+            <th>标题</th>
+            <th>商户</th>
+            <th>所在地</th>
+            <th>交易量</th>
+            <th>价格（元）</th>
+            <th>图片地址</th>
+        </tr>
+        {% include 'taobao_food_table_cont.html' %}
+    </table>
+    <div class="pagination">
+        <select id="pageCount">
+            <option value="5">每页5条</option>
+            <option value="10">每页10条</option>
+            <option value="15">每页15条</option>
+        </select>
+        <ul class="pagelinks">
+        {#        <li><a href="/userInfo/?p=1">1</a></li>#}
+        {#        <li><a href="userInfo/?p=2">2</a></li>#}
+            {% if food.number > pageRange %}
+                <li><a href="/taobaoFood/?p=1">首页</a></li>'
+            {% endif %}
+            {% if food.has_previous %}
+                <li><a href="/taobaoFood/?p={{ food.previous_page_number }}">上一页</a></li>
+            {% endif %}
+            {% circle_page food.number food.paginator.num_pages pageRange 'taobaoFood' %}
+            {% if food.has_next %}
+                <li><a href="/taobaoFood/?p={{ food.next_page_number }}">下一页</a></li>
+            {% endif %}
+            {% if food.number < restPages %}
+                <li><a href="/taobaoFood/?p={{ food.paginator.num_pages }}">尾页</a></li>'
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        function addTableItemID() {//添加列表序号
+            var curentPage = {{ food.number }}//当前页码
+            var itemsNum = {{ itemNum }}//每页条数
+            $('.itemID').each(function (i) {
+                $(this).text((curentPage-1)*itemsNum+i+1)
+            });
+        }
+        var csrftoken = $.cookie('csrftoken')
+        function csrfSafeMethod(method) {
+            return(/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({//对ajax做配置，所有ajax传输前加入csrf秘钥
+                beforeSend:function (xhr,settings) {
+                    if(!csrfSafeMethod(settings.type)&&this.crossDomain) {
+                        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+                    }
+                }
+            });
+        $(function () {
+            addTableItemID()
+            var itemNum = {{ itemNum }};
+            $('#pageCount').val(itemNum);//设置分页信息数
+            var flag = '';
+            var uid = 0;
+            $('#cancel').click(function () {
+               $('.mask').hide();
+            });
+            $('.delete').each(function () {
+                $(this).click(function () {
+                    var name = $(this).parent().parent().children().eq(2).text();
+                    var r = confirm('确定要删除：'+name+"？")
+                    if (r==true){
+                        var id = $(this).parent().parent().children().first().text();
+                        $.ajax({
+                           url: "/deleteUser/",
+                           type: "POST",
+                           data: {'id':id},
+                           success:function (data) {
+{#                               alert(data)#}
+                               $('.mask').hide();
+                               window.location.reload()
+                           }
+                       });
+                    }
+                });
+            });
+
+            $('#pageCount').change(function () {
+                $.cookie('pageNum',$(this).val());
+                window.location.reload();
+            });
+        });
+    </script>
+{% endblock %}

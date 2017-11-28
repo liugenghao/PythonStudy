@@ -203,7 +203,7 @@ header h2{
 .cont .userinfo a:hover{
     color:#fff;
 }
-#adduser{
+.startCrawler{
     display: inline-block;
     border-radius: 10px;
     margin-top:30px;
@@ -211,6 +211,9 @@ header h2{
     padding: 9px 12px;
     background: #526DA5;
     color:#eee
+}
+.startCrawler:hover{
+    color:#aaa;
 }
 .modify{
     margin-right:5px;
