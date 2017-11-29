@@ -275,6 +275,7 @@ header h2{
 }
 .pagelinks{
     float: right;
+    margin-bottom:30px;
 }
 .pagination a{
     margin:0;

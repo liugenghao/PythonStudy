@@ -2,13 +2,15 @@
     <tr>
         <td hidden>{{ row.id}}</td>
         <td class="itemID"></td>
-        <td>{{ row.title }}</td>
+        <td><a href="{{ row.product_url }}" target="_blank">{{ row.title }}</a></td>
 {#        <td><a target="_blank" href="{{ row.url}}">{{ row.url}}</a></td>#}
         <td>{{ row.shopname }}</td>
         <td>{{ row.location }}</td>
         <td>{{ row.deal }}</td>
         <td>{{ row.price }}</td>
+{#        <td><img src="{{ row.image_url }}"></td>#}
         <td><a title="{{ row.image_url}}" target="_blank" href="{{ row.image_url}}">{% if row.image_url|length > 15 %}《{{ row.image_url|slice:'15'}}...》{% else %}《{{ row.image_url}}》{% endif %}</a></td>
+
     </tr>
 {% endfor %}
 

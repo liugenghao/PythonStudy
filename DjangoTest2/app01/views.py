@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import HttpResponse
+from django.http import HttpResponse
 from django.core.paginator import Paginator#分页
 from app01 import models
 # Create your views here.
@@ -79,7 +80,7 @@ def bookInfo(request):
                   {'books': books,  'pageRange': pageRange, 'restPages': restPages, 'itemNum': itemNum})
 
 #抓取淘宝美食
-def foodCrawler(request):
+def foodCrawler(resp):
     from pyquery import PyQuery
     import re
     from selenium import webdriver
@@ -87,11 +88,40 @@ def foodCrawler(request):
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
-
     browser = webdriver.PhantomJS(service_args=['--load-images=false', '--disk-cache=true'])
     wait = WebDriverWait(browser, 10)
     browser.set_window_size(1400, 900)
-    #开始搜索
+
+    # 获取商品详情
+    def get_products():
+        print('获取商品详情')
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-itemlist .items .item')))
+        html = browser.page_source
+        doc = PyQuery(html)
+        items = doc('#mainsrp-itemlist .items .item').items()
+        for item in items:
+            image_url = item.find('.pic .img').attr('src')
+            if not image_url:
+                image_url = ''
+            food = models.Food.objects.create(title=item.find('.title').text(),
+                                              shopname=item.find('.shop').text(),
+                                              location=item.find('.location').text(),
+                                              deal=item.find('.deal-cnt').text(),
+                                              image_url=image_url,
+                                              price=item.find('.price').text(),
+                                              product_url=item.find('.pic-link').attr('href'))
+            # product = {
+            #     'href':item.find('.pic-link').attr('href'),
+            #     'image': item.find('.pic .img').attr('src'),
+            #     'price': item.find('.price').text(),
+            #     'deal': item.find('.deal-cnt').text(),
+            #     'title': item.find('.title').text(),
+            #     'shop': item.find('.shop').text(),
+            #     'location': item.find('.location').text()
+            # }
+            # print(product)
+
+    # 开始搜索
     def search():
         print('开始爬取...')
         try:
@@ -109,12 +139,14 @@ def foodCrawler(request):
             return total.text
         except TimeoutException:
             return search()
-    #下一页
+
+    # 下一页
     def next_page(page_number):
-        print('当前页面：%s页'%page_number)
+        print('当前页面：', page_number)
         try:
             input = wait.until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "#mainsrp-pager > div > div > div > div.form > input"))
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, "#mainsrp-pager > div > div > div > div.form > input"))
             )
             submit = wait.until(
                 EC.element_to_be_clickable(
@@ -131,38 +163,28 @@ def foodCrawler(request):
             get_products()
         except TimeoutException:
             next_page(page_number)
-    #获取商品详情
-    def get_products():
-        print('获取商品详情')
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-itemlist .items .item')))
-        html = browser.page_source
-        doc = PyQuery(html)
-        items = doc('#mainsrp-itemlist .items .item').items()
-        for item in items:
-            food = models.Food.objects.create(title=item.find('.pic .img').attr('src'),
-                                              shopname=item.find('.shop').text(),
-                                              location=item.find('.location').text(),
-                                              deal=item.find('.deal-cnt').text(),
-                                              price=item.find('.price').text(),
-                                              image_url=item.find('.pic .img').attr('src'))
-            # product = {
-            #     'image': item.find('.pic .img').attr('src'),
-            #     'price': item.find('.price').text(),
-            #     'deal': item.find('.deal-cnt').text(),
-            #     'title': item.find('.title').text(),
-            #     'shop': item.find('.shop').text(),
-            #     'location': item.find('.location').text()
-            # }
-            # print(product)
+    try:
+        total = search()
+        total = int(re.compile('(\d+)').search(total).group(1))
+        for i in range(2,total+1):
+            next_page(i)
+    except Exception as e:
+        print(e)
+    finally:
+        browser.close()
+    return HttpResponse(resp)
 #淘宝美食列表
 def taobaoFood(request):
     itemNum = request.COOKIES.get('pageNum', 10)  # 每页信息条数
-    pageRange = 8  # 分页范围
+    pageRange = 12 # 分页范围
     types = models.UserType.objects.all()
     food = models.Food.objects.values('id', 'title', 'shopname', 'location', 'deal',
-                                           'price','image_url').order_by("id")
+                                           'price','image_url','product_url').order_by("id")
     p_obj = Paginator(food, itemNum)  # 分页
-    restPages = p_obj.num_pages - p_obj.num_pages % (pageRange+1)  # 最后一面之前的页数
+    if p_obj.num_pages % pageRange == 0:
+        restPages = p_obj.num_pages - pageRange + 1 # 最后一面之前的页数
+    else:
+        restPages = p_obj.num_pages - p_obj.num_pages % pageRange + 1
     p = request.GET.get('p', 1)
     if int(p) > p_obj.num_pages:  # 防止页码超过阈值
         p = p_obj.num_pages

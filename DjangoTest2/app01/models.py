@@ -34,5 +34,6 @@ class Food(models.Model):
     shopname = models.CharField(max_length=128)
     location = models.CharField(max_length=16)
     deal = models.CharField(max_length=32)
-    price = models.CharField(max_length=32)
-    image_url = models.CharField(max_length=256)
+    price = models.CharField(max_length=64)
+    image_url = models.URLField(max_length=4096,default='')
+    product_url = models.URLField(max_length=4096,default='')
