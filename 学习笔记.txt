@@ -1,9 +1,7 @@
-scrapy：
+scrapy爬虫：
 创建scrapy项目：scrapy startproject 项目名
 创建爬虫：scrapy genspider 爬虫名 网址
 启动爬虫：scrapy crawl 爬虫名
-
-
 保存数据(json)：scrapy crawl 爬虫名 -o 爬虫名.json
 保存数据（文本行）：scrapy crawl 爬虫名 -o 爬虫名.jl
 保存数据（csv）：scrapy crawl 爬虫名 -o 爬虫名.csv

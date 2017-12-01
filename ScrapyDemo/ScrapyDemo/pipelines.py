@@ -30,3 +30,9 @@ class MongoPipeline(object):
     def open_spider(self,spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
+    def process_item(self,item,spider):
+        name = item.__class__.__name__
+        self.db['quotes'].insert(dict(item))
+        return item
+    def close_spider(self,spider):
+        self.client.close()

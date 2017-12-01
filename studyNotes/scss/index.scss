@@ -1,0 +1,38 @@
+$menuWid:20%;
+$contWid:100% - $menuWid;
+$headHeight: 100;
+@mixin topColor{
+  background: #330968;
+  background-blend-mode: multiply,multiply;
+}
+@mixin titleBG{
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+@mixin fixed($pos,$len) {
+  position: fixed;
+  top: #{$headHeight}px;
+  bottom: 0;
+  @if $pos=='left' {
+    left: 0;
+    right: $len;
+  } @else if $pos=='right' {
+    right: 0;
+    left: $len;
+  }
+}
+
+header {
+  width: 100%;
+  height: #{$headHeight}px;
+  @include topColor;
+}
+
+.note_title {
+  @include fixed('left', #{$contWid});
+  @include titleBG
+}
+
+.content {
+  @include fixed('right', #{$menuWid});
+  background: #efefef;
+}
