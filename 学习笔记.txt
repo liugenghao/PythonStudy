@@ -1,3 +1,11 @@
+django：
+运行Django 
+python manage.py runserver 127.0.0.1:8001
+创建app：
+python manage.py startapp 项目名
+创建数据库模型：
+1.python manage.py makemigrations
+2.python manage.py migrate
 scrapy爬虫：
 创建scrapy项目：scrapy startproject 项目名
 创建爬虫：scrapy genspider 爬虫名 网址

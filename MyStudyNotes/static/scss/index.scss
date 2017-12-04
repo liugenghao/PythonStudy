@@ -1,0 +1,64 @@
+$menuWid: 20%;
+
+$headHeight: 110;
+@mixin topColor {
+  background: #330968;
+  background-blend-mode: multiply, multiply;
+}
+
+@mixin titleBG {
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+@mixin fixed($pos,$len) {
+
+
+}
+@mixin awesomeFont($type,$color,$fontSize:1.2em) { //awesomeFont图标
+  content: $type;
+  color: $color;
+  font-size: $fontSize;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  position: absolute;
+}
+header {
+  position: relative;
+  width: 100%;
+  height: #{$headHeight}px;
+  @include topColor;
+  h1{
+    &:before{
+      @include awesomeFont("\f02d",#fff);
+      left:-1.5em;
+      top:0.1em;
+    }
+    position: absolute;
+    left:3.6em;
+    top:1em;
+    color:#fff;
+    text-shadow: 1px 1px 1px #000;
+    font:{
+      size:1.8em;
+    }
+  }
+}
+
+.note_nav {
+  position: fixed;
+  top: #{$headHeight}px;
+  bottom: 0;
+  width:20em;
+  overflow-y: auto;
+  @include titleBG
+}
+
+//.content {
+//  @include fixed('right', #{$menuWid});
+//  background: #efefef;
+//}
+.name{
+
+}
