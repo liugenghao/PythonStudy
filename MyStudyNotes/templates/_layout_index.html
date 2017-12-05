@@ -34,11 +34,11 @@
         新建一级菜单</a></div>
     <ul id="menu_list">
         {% for row in menus %}
-            {% if row.name and not row.parentID%}
+            {% if row.name and not row.parentID %}
                 <li id="{{ row.id }}"><a href="javascript:void(0)">{{ row.name }}</a><i class="fa fa-plus"></i></li>
             {% endif %}
         {% endfor %}
-{#        {% generatelist %}#}
+        {#        {% generatelist %}#}
     </ul>
 
 </div>
@@ -85,7 +85,7 @@
                     $.ajax({
                         url: "/addSubMenu/",
                         type: "POST",
-                        data: {'menuID':menuID,'menuName': menuName},
+                        data: {'menuID': menuID, 'menuName': menuName},
                         success: function (data) {
                             window.location.reload()
                         }
@@ -109,17 +109,24 @@
             $('#modal').show();
             subMenuFlag = true;
         });
+        var element = null;
         $('#menu_list li').each(function () {
             $(this).click(function () {
+                element = $(this);
                 menuID = $(this).attr('id')
                 $.ajax({
-                        url: "/getSubMenu/",
-                        type: "POST",
-                        data: {'menuID': menuID},
-                        success: function (data) {
-{#                            window.location.reload()#}
+                    url: "/getSubMenu/",
+                    type: "POST",
+                    data: {'menuID': menuID},
+                    success: function (data) {
+                        {#                            window.location.reload()#}
+                        data = JSON.parse(data)
+                        {#                            alert(data[0].name)#}
+                        for (var i = 0; i < data.length; i++) {
+                            element.append("<ul id='"+data[i].id+"'><a href='javascript:void(0)'>"+data[i].name+"</a><i class='fa fa-plus'></i></ul>");
                         }
-                    });
+                    }
+                });
             });
         });
     });

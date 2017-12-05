@@ -22,4 +22,6 @@ urlpatterns = [
     url(r'^$',views.index),
     url(r'^addTopMenu',views.addTopMenu,name='addTopMenu'),
     url(r'^addSubMenu', views.addSubMenu, name='addSubMenu'),
+    url(r'^getSubMenu', views.getSubMenu, name='getSubMenu'),
+
 ]

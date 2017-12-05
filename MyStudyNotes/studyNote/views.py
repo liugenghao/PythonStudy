@@ -6,7 +6,20 @@ from studyNote import models
 import json
 # Create your views here.
 def index(request):
+    # data = []
+    # def getChild(menu):
+    #     if menu.left_child:
+    #         subMenu = models.MenusInfo.objects.filter(id=menu.left_child).first()
+    #         data.append({'id': subMenu.id, 'name': subMenu.name})
+    #         return getChild(subMenu)
     menus = models.MenusInfo.objects.all()
+    # for item in menus:
+    #     if not item.parentID:
+    #         getChild(menu)
+    #     # print("parentID:",menuID)
+    #     menu = models.MenusInfo.objects.filter(id=menuID).first()
+    #     # print('childID:',menu.left_child)
+    #     data = []
     # menus2 = models.MenusInfo.objects.o
     # print(menus.first().name)
     return render(request,'index.html',{"menus":menus})
@@ -27,24 +40,44 @@ def addTopMenu(request):
     return HttpResponse('')
 def addSubMenu(request):
     parentID =  int(request.POST.get('menuID'))
+    # print('parentID:',parentID)
     menuName = request.POST.get('menuName')
     parentMenu = models.MenusInfo.objects.filter(id=parentID).first()
-    if not parentMenu.left_child:
+    # print('parentName:',parentMenu.name)
+    layer = parentMenu.layer + 1
+    subMenus = models.MenusInfo.objects.filter(parentID=parentID)
+    subMenusNum = subMenus.count()
+    # print('subMenusNum:',subMenusNum)
+    if subMenusNum == 0:
         code = parentMenu.code
         code = code + '01'
-        layer = parentMenu.layer+1
         addedMenu = models.MenusInfo.objects.create(parentID=parentID, name=menuName, code=code, layer=layer)
+        # print('subMenusNum = 0')
         parentMenu.left_child = addedMenu.id
         parentMenu.save()
+    else:
+        modifySubMenu = subMenus.filter(right_sibling=0).first()#修改right_sibling
+        code = modifySubMenu.code
+        codeBefore = code[:-2]
+        codeAfter = code[-2:]
+        codeAfter =  int(codeAfter) + 1
+        if codeAfter <= 9:
+            codeAfter = '0' + str(codeAfter)
+        else:
+            codeAfter = str(codeAfter)
+        code = codeBefore + codeAfter
+        addedMenu = models.MenusInfo.objects.create(parentID=parentID, name=menuName, code=code, layer=layer)
+        modifySubMenu.right_sibling = addedMenu.id
+        modifySubMenu.save()
+        # pass
     return HttpResponse('')
 def getSubMenu(request):
     menuID = int(request.POST.get('menuID'))
-    menu = models.MenusInfo.objects.filter(id=menuID).first()
+    # print("parentID:",menuID)
+    menus = models.MenusInfo.objects.filter(parentID=menuID).all()
+    # print('childID:',menu.left_child)
     data = []
-    def getChild(menu):
-        if menu.left_child:
-            subMenu = models.MenusInfo.objects.filter(id=menu.left_child).first()
-            data.append({'id':subMenu.id,'name':subMenu.name})
-            return getChild(subMenu)
-    print(data)
-    return HttpResponse('')
+    for item in menus:
+        data.append({'id':item.id,'name':item.name})
+    data =  json.dumps(data)
+    return HttpResponse(data)
