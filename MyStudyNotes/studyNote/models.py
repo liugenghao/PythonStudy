@@ -4,7 +4,8 @@ from django.db import models
 class MenusInfo(models.Model):
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=256)
-    parentID = models.IntegerField()
-    left_child = models.IntegerField()
-    right_sibling = models.IntegerField()
-    layer = models.IntegerField
+    layer = models.IntegerField(null=True)
+    parentID = models.IntegerField(null=True)
+    left_child = models.IntegerField(null=True)
+    right_sibling = models.IntegerField(null=True)
+    status = models.IntegerField(default=0)

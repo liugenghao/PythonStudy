@@ -1,4 +1,9 @@
 $menuWid: 20%;
+@mixin boderRadius($arg) {
+  -moz-border-radius: $arg;
+  -webkit-border-radius: $arg;
+  border-radius: $arg;
+}
 
 $headHeight: 110;
 @mixin topColor {
@@ -12,8 +17,8 @@ $headHeight: 110;
 
 @mixin fixed($pos,$len) {
 
-
 }
+
 @mixin awesomeFont($type,$color,$fontSize:1.2em) { //awesomeFont图标
   content: $type;
   color: $color;
@@ -24,24 +29,25 @@ $headHeight: 110;
   text-decoration: inherit;
   position: absolute;
 }
+
 header {
   position: relative;
   width: 100%;
   height: #{$headHeight}px;
   @include topColor;
-  h1{
-    &:before{
-      @include awesomeFont("\f02d",#fff);
-      left:-1.5em;
-      top:0.1em;
+  h1 {
+    &:before {
+      @include awesomeFont("\f02d", #fff);
+      left: -1.5em;
+      top: 0.1em;
     }
     position: absolute;
-    left:3.6em;
-    top:1em;
-    color:#fff;
+    left: 3.6em;
+    top: 1em;
+    color: #fff;
     text-shadow: 1px 1px 1px #000;
-    font:{
-      size:1.8em;
+    font: {
+      size: 1.8em;
     }
   }
 }
@@ -50,15 +56,149 @@ header {
   position: fixed;
   top: #{$headHeight}px;
   bottom: 0;
-  width:20em;
+  width: 20em;
   overflow-y: auto;
-  @include titleBG
+  @include titleBG;
+  #add-top-menu {
+    color: #eee;
+  }
+  ul{
+    i{
+      cursor: pointer;
+    }
+    width:90%;
+    margin:1em auto;
+    li{
+      position: relative;
+      left:1em;
+      width:80%;
+      margin:1em auto;
+      color:#fff;
+      list-style-type: decimal;
+      a{
+        width:90%;
+        color:#fff;
+      }
+    }
+  }
+
 }
 
+@mixin addfadeinAni($dur) {
+  animation: fadein $dur;
+  -moz-animation: fadein $dur; /* Firefox */
+  -webkit-animation: fadein $dur; /* Safari and Chrome */
+  -o-animation: fadein $dur; /* Opera */
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes fadein /* Firefox */
+  {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes fadein /* Safari 和 Chrome */
+  {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @-o-keyframes fadein /* Opera */
+  {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+$borderRadiusArg: 0.3em;
+.modal {
+  z-index: 999;
+  &.fade-in{
+    @include addfadeinAni(1s);
+  }
+  position: relative;
+  padding-bottom: 1em;
+  width: 20%;
+  margin: 30px auto;
+  box-shadow: 0px 0px 10px 5px #aaa;
+  @include boderRadius($borderRadiusArg);
+  .title {
+    border-top-left-radius: $borderRadiusArg;
+    border-top-right-radius: $borderRadiusArg;
+    padding: 3px 10px;
+    background: #330968;
+    h2 {
+      margin:0.5em 0.2em;
+      color: #eee;
+    }
+  }
+  .btn-gr {
+    text-align: center;
+    margin-bottom: 1em;
+    a {
+      margin: 0 1em;
+      @include boderRadius(0.3em);
+      background: #333F84;
+      padding: 0.18em 0.8em;
+      color: #fff;
+    }
+  }
+}
+.modal2{
+  z-index: 999;
+  &.fade-in{
+    @include addfadeinAni(1s);
+  }
+  position: relative;
+  padding-bottom: 1em;
+  width: 20%;
+  margin: 30px auto;
+  box-shadow: 0px 0px 10px 5px #aaa;
+  @include boderRadius($borderRadiusArg);
+  .title {
+    border-top-left-radius: $borderRadiusArg;
+    border-top-right-radius: $borderRadiusArg;
+    padding: 3px 10px;
+    background: #330968;
+    h2 {
+      margin:0.5em 0.2em;
+      color: #eee;
+    }
+  }
+  .btn-gr {
+    text-align: center;
+    margin-bottom: 1em;
+    margin-top:1.5em;
+    a {
+      margin: 1em 2em;
+      @include boderRadius(0.3em);
+      background: #333F84;
+      padding: 0.18em 0.8em;
+      color: #fff;
+      font-size:1.3em;
+    }
+  }
+}
 //.content {
 //  @include fixed('right', #{$menuWid});
 //  background: #efefef;
 //}
-.name{
-
-}

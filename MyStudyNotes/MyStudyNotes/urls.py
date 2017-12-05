@@ -19,5 +19,7 @@ from studyNote import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',views.index)
+    url(r'^$',views.index),
+    url(r'^addTopMenu',views.addTopMenu,name='addTopMenu'),
+    url(r'^addSubMenu', views.addSubMenu, name='addSubMenu'),
 ]

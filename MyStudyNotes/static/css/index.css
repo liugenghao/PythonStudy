@@ -31,5 +31,140 @@ header {
   width: 20em;
   overflow-y: auto;
   background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
+  .note_nav #add-top-menu {
+    color: #eee; }
+  .note_nav ul {
+    width: 90%;
+    margin: 1em auto; }
+    .note_nav ul i {
+      cursor: pointer; }
+    .note_nav ul li {
+      position: relative;
+      left: 1em;
+      width: 80%;
+      margin: 1em auto;
+      color: #fff;
+      list-style-type: decimal; }
+      .note_nav ul li a {
+        width: 90%;
+        color: #fff; }
+
+.modal {
+  z-index: 999;
+  position: relative;
+  padding-bottom: 1em;
+  width: 20%;
+  margin: 30px auto;
+  box-shadow: 0px 0px 10px 5px #aaa;
+  -moz-border-radius: 0.3em;
+  -webkit-border-radius: 0.3em;
+  border-radius: 0.3em; }
+  .modal.fade-in {
+    animation: fadein 1s;
+    -moz-animation: fadein 1s;
+    /* Firefox */
+    -webkit-animation: fadein 1s;
+    /* Safari and Chrome */
+    -o-animation: fadein 1s;
+    /* Opera */ }
+@keyframes fadein {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-moz-keyframes fadein /* Firefox */ {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-webkit-keyframes fadein /* Safari 和 Chrome */ {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-o-keyframes fadein /* Opera */ {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+  .modal .title {
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    padding: 3px 10px;
+    background: #330968; }
+    .modal .title h2 {
+      margin: 0.5em 0.2em;
+      color: #eee; }
+  .modal .btn-gr {
+    text-align: center;
+    margin-bottom: 1em; }
+    .modal .btn-gr a {
+      margin: 0 1em;
+      -moz-border-radius: 0.3em;
+      -webkit-border-radius: 0.3em;
+      border-radius: 0.3em;
+      background: #333F84;
+      padding: 0.18em 0.8em;
+      color: #fff; }
+
+.modal2 {
+  z-index: 999;
+  position: relative;
+  padding-bottom: 1em;
+  width: 20%;
+  margin: 30px auto;
+  box-shadow: 0px 0px 10px 5px #aaa;
+  -moz-border-radius: 0.3em;
+  -webkit-border-radius: 0.3em;
+  border-radius: 0.3em; }
+  .modal2.fade-in {
+    animation: fadein 1s;
+    -moz-animation: fadein 1s;
+    /* Firefox */
+    -webkit-animation: fadein 1s;
+    /* Safari and Chrome */
+    -o-animation: fadein 1s;
+    /* Opera */ }
+@keyframes fadein {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-moz-keyframes fadein /* Firefox */ {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-webkit-keyframes fadein /* Safari 和 Chrome */ {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-o-keyframes fadein /* Opera */ {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+  .modal2 .title {
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    padding: 3px 10px;
+    background: #330968; }
+    .modal2 .title h2 {
+      margin: 0.5em 0.2em;
+      color: #eee; }
+  .modal2 .btn-gr {
+    text-align: center;
+    margin-bottom: 1em;
+    margin-top: 1.5em; }
+    .modal2 .btn-gr a {
+      margin: 1em 2em;
+      -moz-border-radius: 0.3em;
+      -webkit-border-radius: 0.3em;
+      border-radius: 0.3em;
+      background: #333F84;
+      padding: 0.18em 0.8em;
+      color: #fff;
+      font-size: 1.3em; }
 
 /*# sourceMappingURL=index.css.map */

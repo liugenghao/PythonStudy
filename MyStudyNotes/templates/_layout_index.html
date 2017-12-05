@@ -1,25 +1,129 @@
+{% load makelist %}
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0;"/>
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/index.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
-	<title>我的学习笔记</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+    <title>我的学习笔记</title>
 </head>
 <body>
-	<header>
-        <h1>我的学习笔记</h1>
-    </header>
-	<div class="note_nav"><i></i><div>
-    <div class="content">
-        {% block content %}{% endblock %}
+<div id="mask" class="hide" style="position:absolute;width:100%;height:100%;left:0;top:0;z-index: 99;opacity: 0"></div>
+<header>
+    <h1>我的学习笔记</h1>
+</header>
+<div id="modal" class="modal hide">
+    <div class="title"><h2>添加一级目录</h2></div>
+    <div style="text-align: center;padding:1em;margin:1.5em;">菜单名：<input id='menuName' style="padding:3px;" type="text">
     </div>
-    <script language="JavaScript" src="/static/js/jquery-3.2.1.min.js"></script>
-    <script language="JavaScript" src="/static/js/jquery.cookie.js"></script>
-    {% block js %}{% endblock %}
+    <div class="btn-gr"><a id="confirm" href="javascript:void(0)">确认</a><a id="cancel" href="javascript:void(0)">取消</a>
+    </div>
+</div>
+<div id="modal2" class="modal2 hide">
+    <div class="title"><h2></h2></div>
+    <div class="btn-gr"><a id="add_sub_menu" href="javascript:void(0)">子菜单</a><a id="add_content"
+                                                                                 href="javascript:void(0)">内容</a>
+    </div>
+</div>
+<div class="note_nav">
+    <div style="text-align: center;"><a id="add-top-menu" href="javascript:void(0)"><i class="fa fa-plus"></i>
+        新建一级菜单</a></div>
+    <ul id="menu_list">
+        {% for row in menus %}
+            {% if row.name and not row.parentID%}
+                <li id="{{ row.id }}"><a href="javascript:void(0)">{{ row.name }}</a><i class="fa fa-plus"></i></li>
+            {% endif %}
+        {% endfor %}
+{#        {% generatelist %}#}
+    </ul>
+
+</div>
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+<script language="JavaScript" src="/static/js/jquery-3.2.1.min.js"></script>
+<script language="JavaScript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var menuID = null;
+        var menuName = null;
+        var subMenuFlag = false;
+        $('#add-top-menu').click(function () {
+            $('#mask').show();
+            $('#modal').show().addClass('fade-in');
+            subMenuFlag = false;
+        });
+        $('#cancel').click(function () {
+            $('#modal').hide();
+            $('#menuName').val('');
+        });
+        $('#menu_list i').each(function () {
+            $(this).click(function () {
+                menuName = $(this).prev().text()
+                $('#modal2 h2').text('为' + menuName + '添加');
+                $('#mask').show();
+                menuID = $(this).attr('id')
+                $('#modal2').show().addClass('fade-in');
+            });
+        });
+        $('#mask').on('click', function (e) {
+            if (e.target !== $('#modal2') || e.target !== $('#modal')) {
+                $('#modal2').hide();
+                $('#modal').hide();
+                $('#mask').hide();
+                $('#menuName').val('');
+            }
+        });
+        $('#confirm').click(function () {
+            var menuName = $.trim($('#menuName').val());
+            if (menuName != '') {
+                if (subMenuFlag) {//如果添加的是子菜单
+                    $.ajax({
+                        url: "/addSubMenu/",
+                        type: "POST",
+                        data: {'menuID':menuID,'menuName': menuName},
+                        success: function (data) {
+                            window.location.reload()
+                        }
+                    });
+                } else {//如果添加的总目录
+                    $.ajax({
+                        url: "/addTopMenu/",
+                        type: "POST",
+                        data: {'menuName': menuName},
+                        success: function (data) {
+                            window.location.reload()
+                        }
+                    });
+                }
+            }
+        });
+        $('#add_sub_menu').click(function () {
+            $('#modal2').hide();
+            $('#mask').hide();
+            $('#modal h2').text('为' + menuName + '添加子菜单')
+            $('#modal').show();
+            subMenuFlag = true;
+        });
+        $('#menu_list li').each(function () {
+            $(this).click(function () {
+                menuID = $(this).attr('id')
+                $.ajax({
+                        url: "/getSubMenu/",
+                        type: "POST",
+                        data: {'menuID': menuID},
+                        success: function (data) {
+{#                            window.location.reload()#}
+                        }
+                    });
+            });
+        });
+    });
+</script>
+{% block js %}{% endblock %}
 </body>
 </html>
