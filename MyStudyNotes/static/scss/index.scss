@@ -62,26 +62,40 @@ header {
   #add-top-menu {
     color: #eee;
   }
-  ul{
-    i{
-      cursor: pointer;
-    }
-    width:90%;
-    margin:1em auto;
-    li{
-      position: relative;
-      left:1em;
-      width:80%;
-      margin:1em auto;
-      color:#fff;
-      list-style-type: decimal;
-      a{
-        width:90%;
-        color:#fff;
+  ul {
+    width: 100%;
+    &.first {
+      width: 96%;
+      margin: 0 auto;
+      margin-left: 1em;
+      .second {
+        padding: 0;
+        li {
+          width:90%;
+        }
       }
     }
-  }
+    li {
+      position: relative;
+      width: 90%;
+      margin:0 auto;
+      margin-top: 1em;
+      color: #fff;
+      list-style-type: decimal;
+    }
+    a {
+      width: 90%;
+      color: #fff;
+    }
+    i {
+      position: absolute;
+      right: 2%;
+      display: inline-block;
+      wdith: 10%;
+      cursor: pointer;
+    }
 
+  }
 }
 
 @mixin addfadeinAni($dur) {
@@ -132,7 +146,7 @@ header {
 $borderRadiusArg: 0.3em;
 .modal {
   z-index: 999;
-  &.fade-in{
+  &.fade-in {
     @include addfadeinAni(1s);
   }
   position: relative;
@@ -147,7 +161,7 @@ $borderRadiusArg: 0.3em;
     padding: 3px 10px;
     background: #330968;
     h2 {
-      margin:0.5em 0.2em;
+      margin: 0.5em 0.2em;
       color: #eee;
     }
   }
@@ -163,9 +177,10 @@ $borderRadiusArg: 0.3em;
     }
   }
 }
-.modal2{
+
+.modal2 {
   z-index: 999;
-  &.fade-in{
+  &.fade-in {
     @include addfadeinAni(1s);
   }
   position: relative;
@@ -180,24 +195,25 @@ $borderRadiusArg: 0.3em;
     padding: 3px 10px;
     background: #330968;
     h2 {
-      margin:0.5em 0.2em;
+      margin: 0.5em 0.2em;
       color: #eee;
     }
   }
   .btn-gr {
     text-align: center;
     margin-bottom: 1em;
-    margin-top:1.5em;
+    margin-top: 1.5em;
     a {
       margin: 1em 2em;
       @include boderRadius(0.3em);
       background: #333F84;
       padding: 0.18em 0.8em;
       color: #fff;
-      font-size:1.3em;
+      font-size: 1.3em;
     }
   }
 }
+
 //.content {
 //  @include fixed('right', #{$menuWid});
 //  background: #efefef;

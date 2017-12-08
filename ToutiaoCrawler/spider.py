@@ -4,6 +4,7 @@ import requests
 from requests.exceptions import RequestException
 import json
 from bs4 import BeautifulSoup
+from multiprocessing import Pool
 import re
 def get_page_index(offset,keyword):
     data ={
@@ -58,8 +59,8 @@ def parse_page_detail(html,url):
                 'url':url,
                 'images':images
             }
-def main():
-    html = get_page_index(0,'街拍')
+def main(offset):
+    html = get_page_index(offset,'街拍')
     for url in get_page_url(html):
         html = get_page_detail(url)
         if html:
@@ -67,5 +68,8 @@ def main():
             print(result)
 
 if __name__ == '__main__':
-    main()
-
+    groups = [x * 20 for x in range(1,20 + 1)]
+    pool = Pool()
+    pool.map(main,groups)
+    pool.close()
+    pool.join()

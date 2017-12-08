@@ -67,7 +67,7 @@ def bookCrawler():
 def bookInfo(request):
     itemNum = request.COOKIES.get('pageNum', 10)  # 每页信息条数
     pageRange = 8  # 分页范围
-    types = models.UserType.objects.all()
+    # types = models.UserType.objects.all()
     books = models.Books.objects.values('id', 'name', 'url', 'abstract', 'createTime',
                                            'updateTime','author_m2m_book__aobj__name').order_by("id")
     p_obj = Paginator(books, itemNum)  # 分页
@@ -191,6 +191,78 @@ def taobaoFood(request):
     food = p_obj.page(p)
     return render(request, 'taobao_food.html',
                   {'food': food,  'pageRange': pageRange, 'restPages': restPages, 'itemNum': itemNum})
+def temp(request):
+    food = models.Food.objects.values('id', 'title', 'shopname', 'location', 'deal',
+                                      'price', 'image_url', 'product_url').order_by("id")
+
+    return render(request, 'temp.html',{'food': food })
+def callForBidCrawler(request):
+    from urllib.parse import urlencode
+    import requests
+    from requests.exceptions import RequestException
+    import json
+    from bs4 import BeautifulSoup
+    from multiprocessing import Pool
+    import re
+    def get_page_index(offset):
+        data = {
+            'pageing': offset,
+        }
+        url = 'http://www.ycztb.com/TPFront/jyxx/003001/003001001/003001001002/?pageing=' + str(offset)
+        response = requests.get(url)
+        try:
+            if response.status_code == 200:
+                # print(response.text)
+                return response.text
+            return None
+        except RequestException:
+            print('请求索引页出错')
+            return None
+
+    def get_page_detail(url):
+        response = requests.get(url)
+        try:
+            if response.status_code == 200:
+                return response.text
+            return None
+        except RequestException:
+            print('请求详情页出错', url)
+            return None
+
+    def parse_page_detail(html):
+        soup = BeautifulSoup(html, 'lxml')
+        item = soup.select('.list-item')
+
+        # images_pattern = re.compile('gallery: JSON.parse\((.*?)\),', re.S)
+        # result = re.search(images_pattern, html)
+        # if result:
+        #     data = result.group(1)
+        #     data = data.replace('\\', '')
+        #     data = data[1:-1]
+        #     data = json.loads(data)
+        #     # print(data)
+        # if data and 'sub_images' in data.keys():
+        #     sub_images = data.get('sub_images')
+        #     # print(sub_images)
+        #     images = [item.get('url') for item in sub_images]
+        #     return {
+        #         'title': title,
+        #         'url': url,
+        #         'images': images
+        #     }
+
+    def main(offset):
+        html = get_page_index(offset)
+        parse_page_detail(html)
+        # for url in get_page_url(html):
+        #     html = get_page_detail(url)
+        #     if html:
+        #         result = parse_page_detail(html, url)
+        #         print(result)
+    main(1)
+    return HttpResponse(request)
+def callForBidInfo(request):
+    return render(request, 'call_for_bid_info.html')
 @csrf_protect
 @auth
 def userInfo(request):
@@ -257,6 +329,4 @@ def modifyUser(request):
     user.user_type = models.UserType.objects.filter(name=user_type).first()
     user.save()
     return HttpResponse('修改完毕')
-
-
 

@@ -18,7 +18,7 @@
 </header>
 <div id="modal" class="modal hide">
     <div class="title"><h2>添加一级目录</h2></div>
-    <div style="text-align: center;padding:1em;margin:1.5em;">菜单名：<input id='menuName' style="padding:3px;" type="text">
+    <div style="text-align: center;padding:1em;margin:1.5em;"><input id='menuName' style="width:90%;padding:3px;" type="text">
     </div>
     <div class="btn-gr"><a id="confirm" href="javascript:void(0)">确认</a><a id="cancel" href="javascript:void(0)">取消</a>
     </div>
@@ -32,13 +32,34 @@
 <div class="note_nav">
     <div style="text-align: center;"><a id="add-top-menu" href="javascript:void(0)"><i class="fa fa-plus"></i>
         新建一级菜单</a></div>
-    <ul id="menu_list">
-        {% for row in menus %}
-            {% if row.name and not row.parentID %}
-                <li id="{{ row.id }}"><a href="javascript:void(0)">{{ row.name }}</a><i class="fa fa-plus"></i></li>
-            {% endif %}
-        {% endfor %}
-        {#        {% generatelist %}#}
+    <ul id="menu_list" class="first">
+{#        {% for row in menus %}#}
+{#            {% if row.name and not row.parentID %}#}
+{#                <li id="{{ row.id }}"><a href="javascript:void(0)">{{ row.name }}</a><i class="fa fa-plus"></i>#}
+{#                    {% if row.left_child %}#}
+{#                        <ul class="second">#}
+{#                            {% for row2 in menus %}#}
+{#                                {% if row.id == row2.parentID %}#}
+{#                                    <li id="{{ row2.id }}"><a href="javascript:void(0)">{{ row2.name }}</a>#}
+{#                                    <i class="fa fa-plus"></i>#}
+{#                                        {% if row2.left_child %}#}
+{#                                            <ul class="third">#}
+{#                                                {% for row3 in menus %}#}
+{#                                                    {% if row2.id == row3.parentID %}#}
+{#                                                        <li id="{{ row3.id }}">#}
+{#                                                        <a href="javascript:void(0)">{{ row3.name }}</a>#}
+{#                                                    {% endif %}#}
+{#                                                {% endfor %}#}
+{#                                            </ul>#}
+{#                                        {% endif %}#}
+{#                                {% endif %}#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    {% endif %}#}
+{#                </li>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+                {% generatelist %}
     </ul>
 
 </div>
@@ -61,12 +82,12 @@
             $('#modal').hide();
             $('#menuName').val('');
         });
-        $('#menu_list i').each(function () {
+        $('ul i').each(function () {
             $(this).click(function () {
                 menuName = $(this).prev().text()
                 $('#modal2 h2').text('为' + menuName + '添加');
                 $('#mask').show();
-                menuID = $(this).attr('id')
+                menuID = $(this).parent().attr('id')
                 $('#modal2').show().addClass('fade-in');
             });
         });
@@ -108,26 +129,6 @@
             $('#modal h2').text('为' + menuName + '添加子菜单')
             $('#modal').show();
             subMenuFlag = true;
-        });
-        var element = null;
-        $('#menu_list li').each(function () {
-            $(this).click(function () {
-                element = $(this);
-                menuID = $(this).attr('id')
-                $.ajax({
-                    url: "/getSubMenu/",
-                    type: "POST",
-                    data: {'menuID': menuID},
-                    success: function (data) {
-                        {#                            window.location.reload()#}
-                        data = JSON.parse(data)
-                        {#                            alert(data[0].name)#}
-                        for (var i = 0; i < data.length; i++) {
-                            element.append("<ul id='"+data[i].id+"'><a href='javascript:void(0)'>"+data[i].name+"</a><i class='fa fa-plus'></i></ul>");
-                        }
-                    }
-                });
-            });
         });
     });
 </script>

@@ -22,7 +22,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^favicon.ico$',RedirectView.as_view(url=r'static/favicon.ico')),
     # url(r'^',include('app01.urls'))
-    url(r'^$',views.bookInfo),
+    # url(r'^$',views.bookInfo),
+    url(r'^$',views.temp,name='views.temp'),
+    url(r'^callForBidInfo',views.callForBidInfo,name='views.callForBidInfo'),
+    url(r'^callForBidCrawler', views.callForBidCrawler, name='views.callForBidCrawler'),
     url(r'^login/',views.login,name='login'),
     url(r'^logout/',views.logout,name='logout'),
     url(r'^userInfo/',views.userInfo,name='userInfo'),
@@ -34,5 +37,6 @@ urlpatterns = [
     url(r'^modifyUser/', views.modifyUser, name='modifyUser'),
     url(r'^bookInfo/',views.bookInfo,name='bookInfo'),
     url(r'^taobaoFood/', views.taobaoFood, name='taobaoFood'),
-    url(r'^foodCrawler/', views.foodCrawler, name='foodCrawler')
+    url(r'^foodCrawler/', views.foodCrawler, name='foodCrawler'),
+    url(r'^temp/', views.temp, name='temp'),
 ]

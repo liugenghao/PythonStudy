@@ -6,23 +6,7 @@ from studyNote import models
 import json
 # Create your views here.
 def index(request):
-    # data = []
-    # def getChild(menu):
-    #     if menu.left_child:
-    #         subMenu = models.MenusInfo.objects.filter(id=menu.left_child).first()
-    #         data.append({'id': subMenu.id, 'name': subMenu.name})
-    #         return getChild(subMenu)
-    menus = models.MenusInfo.objects.all()
-    # for item in menus:
-    #     if not item.parentID:
-    #         getChild(menu)
-    #     # print("parentID:",menuID)
-    #     menu = models.MenusInfo.objects.filter(id=menuID).first()
-    #     # print('childID:',menu.left_child)
-    #     data = []
-    # menus2 = models.MenusInfo.objects.o
-    # print(menus.first().name)
-    return render(request,'index.html',{"menus":menus})
+    return render(request,'index.html')
 def addTopMenu(request):
     menuName = request.POST.get('menuName')
     lastTopMenu = models.MenusInfo.objects.filter(layer=1).order_by('code').last()
@@ -73,9 +57,9 @@ def addSubMenu(request):
     return HttpResponse('')
 def getSubMenu(request):
     menuID = int(request.POST.get('menuID'))
-    # print("parentID:",menuID)
+    print("parentID:",menuID)
     menus = models.MenusInfo.objects.filter(parentID=menuID).all()
-    # print('childID:',menu.left_child)
+    print('childID:',menus.left_child)
     data = []
     for item in menus:
         data.append({'id':item.id,'name':item.name})
