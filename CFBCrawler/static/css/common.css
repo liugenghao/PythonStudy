@@ -1,0 +1,298 @@
+@charset "UTF-8";
+
+/*css 初始化 */
+
+body {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+img {
+    margin: 0;
+    padding: 0;
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+}
+
+fieldset,
+img,
+input,
+button {
+    border: 1px solid #c0c0c0;
+    padding: 0;
+    margin: 0;
+    outline-style: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "SimSun", "宋体";
+}
+
+select,
+input {
+    vertical-align: middle;
+}
+
+select,
+input,
+textarea {
+    font-size: 12px;
+    margin: 0;
+}
+
+textarea {
+    resize: none;
+}
+
+
+/*防止拖动*/
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+
+/*  去掉图片低测默认的3像素空白缝隙*/
+
+table {
+    border-collapse: collapse;
+}
+
+body {
+    font: 12px/150% Arial, Verdana, "\5b8b\4f53";
+    font-family: 'Open Sans', 'helvetica', arial, sans-serif;
+    color: #777;
+    background: #fff;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+    /*IE/7/6*/
+}
+
+a {
+    color: #777;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #C81623;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+s,
+i,
+em {
+    font-style: normal;
+    text-decoration: none;
+}
+header{
+    width:100%;
+    height: 120px;
+    background: #333;
+}
+header img{
+    position: relative;
+    left:60px;
+    top:22px;
+}
+header h1{
+    position: relative;
+    top:-15px;
+    margin-left: 140px;
+    font-size: 2.2em;
+    color: #fff;
+}
+nav{
+    position: absolute;
+    width:15%;
+    top:120px;
+    bottom: 0;
+    background: #333;
+    border-top:1px solid #666;
+}
+nav ul{
+    margin-top:60px;
+    width:100%;
+    text-align: center;
+    font-size: 1.5em;
+}
+nav li a{
+    line-height: 60px;
+    color:#c0c0c0;
+}
+nav li a:hover{
+    color: #fff;
+}
+.cont{
+    position: absolute;
+    width:85%;
+    top:120px;
+    right: 0;
+    bottom: 0;
+    background: #444;
+    overflow: auto;
+    border-top: 1px solid #666;
+}
+header h2{
+    position: absolute;
+    top:50px;
+    right:150px;
+    color:#ccc;
+    font-size: 1.8em;
+}
+.cont .userinfo{
+    width:90%;
+    margin: 20px auto;
+    text-align: center;
+    color: #ccc;
+}
+.cont .userinfo tr{
+    line-height:45px;
+    border-bottom: 1px dashed rgba(255,255,255,.2);
+}
+.cont .userinfo a{
+    color:#ccc;
+}
+.cont .userinfo a:hover{
+    color:#fff;
+}
+.startCrawler{
+    display: inline-block;
+    border-radius: 10px;
+    margin-top:30px;
+    margin-left: 90px;
+    padding: 9px 12px;
+    background: #526DA5;
+    color:#eee
+}
+.startCrawler:hover{
+    color:#aaa;
+}
+.modify{
+    margin-right:5px;
+}
+.delete{
+    margin-left:5px;
+}
+
+.mask{
+    position: fixed;
+    z-index: 9;
+    right:0;
+    top:120px;
+    width:85%;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+}
+.mask .detailPanel{
+    border-radius: 30px;
+    padding:20px;
+    padding-left:40px;
+    width:250px;
+    margin:150px auto;
+    background: #fff;
+
+}
+.mask table tr{
+    line-height:60px;
+}
+.mask .detailPanel td:first-child{
+    text-align: right;
+}
+
+.mask .detailPanel input{
+    padding:5px 8px;
+    border-radius: 5px;
+}
+.detailPanel a{
+    padding:5px 9px;
+    background: #526DA5;
+    color: #fff;
+    margin-right:10px;
+    border-radius: 5px;
+}
+.detailPanel a:hover{
+    cursor: pointer;
+}
+.pagination{
+    width:90%;
+    margin:35px auto;
+}
+#pageCount{
+    width:90px;
+    padding:1px;
+    float: left;
+}
+.pagination li{
+    float: left;
+}
+.pagelinks{
+    float: right;
+    margin-bottom:30px;
+}
+.pagination a{
+    margin:0;
+    display: inline;
+    padding:5px 9px;
+    background: #526DA5;
+    color:whitesmoke;
+}
+.pagination li.actived a{
+    background: #eee;
+    color:#333333;
+}
+#logout{
+    font-size:16px;
+    background: indianred;
+    color:#ccc;
+    padding :6px 10px;
+    border-radius: 5px;
+    margin-left:30px;
+}
