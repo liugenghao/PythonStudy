@@ -8,7 +8,7 @@ print(name.ljust(20,"*"))
 print(name.rjust(20,"*"))
 
 print(name.endswith("o"))
-print(name.startswith("L"))
+print('-----------',name.startswith("i"))
 print(name.expandtabs(tabsize=10))
 print(name[name.find("h"):])
 print(sentence.format(name='Bill',age=23))

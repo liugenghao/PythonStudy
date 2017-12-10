@@ -77,15 +77,17 @@ def getPageNum(url):
             html = response.text
             soup = BeautifulSoup(html, 'lxml')
             items = soup.select('.wb-page-number')
-            page_num = int(items[0].get_text().split('/')[1])
-            return page_num
+            try:
+                page_num = int(items[0].get_text().split('/')[1])
+                return page_num
+            except IndexError:
+                return 1
     except RequestException:
         print('请求索引页出错')
 def getAllInfo(url):
-    page_num = getPageNum(url)
-    for i in range(1,page_num+1):
-        print('爬取【%s】第【%s】页'%(url,i))
-        response = requests.get(url+'/?pageing='+str(i))
+    def crawl(url,i):
+        print('爬取【%s】第【%s】页' % (url, i))
+        response = requests.get(url + '/?pageing=' + str(i))
         try:
             if response.status_code == 200:
                 html = response.text
@@ -101,14 +103,22 @@ def getAllInfo(url):
                             code = re.match(r'.*/(\d*)', url, re.S).group(1)
                             menu_Type = models.CFBMenuInfo.objects.filter(code=code).first()
                             href = BaseData.TOP_URL + href
-                            models.CFBInfoDetail.objects.create(title=title,href=href,publication_date=date,code=code)
+                            models.CFBInfoDetail.objects.create(title=title, href=href, publication_date=date,
+                                                                code=code)
 
         except RequestException:
             print('请求索引页出错')
+    page_num = getPageNum(url)
+    if page_num > 1:
+        for i in range(1,page_num+1):
+            crawl(url, i)
+    else:
+        crawl(url, 1)
 def getRangeInfo(url):
     pass
 import threading
 def startCrawler():
+    # initialMenu()
     urls = genUrl()
     for url in urls:
         getAllInfo(url)
