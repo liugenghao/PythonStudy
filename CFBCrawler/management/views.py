@@ -8,7 +8,8 @@ from management import models
 
 
 def callForBidInfo(request):
-    cfb_informations = models.CFBInfoDetail.objects.all()
+    cfb_informations = models.CFBInfoDetail.objects.order_by('-publication_date')
+    print(cfb_informations.first().publication_date)
     return render(request, 'call_for_bid_info.html',{'cfb_informations':cfb_informations})
 
 # 抓取

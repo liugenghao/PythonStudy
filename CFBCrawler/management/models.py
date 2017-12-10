@@ -21,4 +21,4 @@ class CFBInfoDetail(models.Model):
     title = models.CharField(max_length=128)
     href = models.URLField(max_length=512)
     publication_date = models.DateField()
-    type = models.ForeignKey(CFBMenuInfo)
+    code = models.CharField(max_length=64)

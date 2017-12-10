@@ -9,7 +9,7 @@ import re
 from management import models
 from management import BaseData
 
-def initialMenus(url):#初始化菜单
+def genMenus(url):#初始化菜单
     response = requests.get(url)
     try:
         if response.status_code == 200:
@@ -27,9 +27,13 @@ def initialMenus(url):#初始化菜单
                     print('生成Menu：%s---code：%s'%(name,code))
                     models.CFBMenuInfo.objects.create(code=code, name=name,layer=layer,url_length=url_length)
                 if code:
-                    initialMenus(url+'/'+code)
+                    genMenus(url+'/'+code)
     except RequestException:
         print('请求索引页出错')
+def initialMenu():
+    url = BaseData.TOP_URL + '/TPFront/jyxx'
+    genMenus(url)
+
 def isCrawlerPage(url):
     response = requests.get(url)
     try:
@@ -97,19 +101,15 @@ def getAllInfo(url):
                             code = re.match(r'.*/(\d*)', url, re.S).group(1)
                             menu_Type = models.CFBMenuInfo.objects.filter(code=code).first()
                             href = BaseData.TOP_URL + href
-                            models.CFBInfoDetail.objects.create(title=title,href=href,publication_date=date,type=menu_Type)
+                            models.CFBInfoDetail.objects.create(title=title,href=href,publication_date=date,code=code)
 
         except RequestException:
             print('请求索引页出错')
 def getRangeInfo(url):
     pass
+import threading
 def startCrawler():
-    # url = BaseData.TOP_URL + '/TPFront/jyxx'
-    for url in genUrl():
+    urls = genUrl()
+    for url in urls:
         getAllInfo(url)
-    # urls = genUrl()
-    # pool = Pool()
-    # pool.map(getAllInfo,urls)
-    # pool.close()
-    # pool.join()
-   # print(genUrl())
+

@@ -1,79 +1,144 @@
 {% extends '_layout_index.html' %}
 {% block content %}
-<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Data Tables
-        <small>advanced tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-      </ol>
-    </section>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Data Tables
+                <small>advanced tables</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Tables</a></li>
+                <li class="active">Data tables</li>
+            </ol>
+        </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">宜昌公共资源交易信息网招标数据</h3>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">宜昌公共资源交易信息网招标数据</h3>
+                        </div>
+
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_length" id="example1_length"><label>显示 <select
+                                                name="example1_length" aria-controls="example1"
+                                                class="form-control input-sm">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> 条</label></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="example1_filter" class="dataTables_filter"><label>搜索:<input
+                                                type="search" class="form-control input-sm" placeholder=""
+                                                aria-controls="example1"></label></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table id="example1" class="table table-bordered table-striped dataTable"
+                                               role="grid" aria-describedby="example1_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="标题: activate to sort column descending">标题
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="链接: activate to sort column ascending">链接
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="发布日期: activate to sort column ascending">
+                                                    发布日期
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% if cfb_informations.count > 0 %}
+                                                {% for info in cfb_informations %}
+                                                    <tr role="row">
+                                                        <td>{{ info.title }}</td>
+                                                        <td>
+                                                            {{ info.href }}
+                                                        </td>
+                                                        <td>{{ info.publication_date }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th rowspan="1" colspan="1">标题</th>
+                                                <th rowspan="1" colspan="1">链接</th>
+                                                <th rowspan="1" colspan="1">发布日期</th>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="dataTables_info" id="example1_info" role="status"
+                                             aria-live="polite">显示 1 到 1 - 总数： 1
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button 上一页 disabled" id="example1_上一页"><a href="#"
+                                                                                                              aria-controls="example1"
+                                                                                                              data-dt-idx="0"
+                                                                                                              tabindex="0">上一页</a>
+                                                </li>
+                                                <li class="paginate_button active"><a href="#" aria-controls="example1"
+                                                                                      data-dt-idx="1" tabindex="0">1</a>
+                                                </li>
+                                                <li class="paginate_button 下一页 disabled" id="example1_下一页"><a href="#"
+                                                                                                              aria-controls="example1"
+                                                                                                              data-dt-idx="2"
+                                                                                                              tabindex="0">下一页</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>标题</th>
-                  <th>链接</th>
-                  <th>发布日期</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in cfb_informations %}
-                    <tr>
-                        <td>{{ row.title }}</td>
-                        <td>{{ row.href }}</td>
-                        <td>{{ row.publication_date }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>标题</th>
-                  <th>链接</th>
-                  <th>发布日期</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 {% endblock %}
-  {% block js %}
-      <script>
-  $(function () {
-    $('#example1').DataTable({
-      'paging'      : true,
-      {#'lengthChange': false,#}
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      {#'autoWidth'   : false#}
-    })
-  })
-</script>
-  {% endblock %}
+{% block js %}
+    <script>
+        $(function () {
+            {#            $('#example1').DataTable({#}
+            {#                'paging': true,#}
+            {#                'lengthChange': true,#}
+            {#                'searching': true,#}
+            {#                'ordering': true,#}
+            {#                'info': true,#}
+            {#                'autoWidth': false#}
+            {#            })#}
+        })
+    </script>
+{% endblock %}
