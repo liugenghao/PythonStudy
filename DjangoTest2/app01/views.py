@@ -5,6 +5,10 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator#分页
 from app01 import models
 # Create your views here.
+#初始化数据库
+def initialDatabase():
+    from app01 import BaseData
+    # models.
 #登录验证装饰器
 def auth(func):
     def inner(request,*args,**kwargs):
@@ -231,8 +235,9 @@ def callForBidCrawler(request):
 
     def parse_page_detail(html):
         soup = BeautifulSoup(html, 'lxml')
-        item = soup.select('.list-item')
-
+        items = soup.select('.list-item')
+        for item in items:
+            print(item.a.get_text())
         # images_pattern = re.compile('gallery: JSON.parse\((.*?)\),', re.S)
         # result = re.search(images_pattern, html)
         # if result:

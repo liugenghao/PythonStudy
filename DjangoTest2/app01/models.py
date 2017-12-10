@@ -37,3 +37,21 @@ class Food(models.Model):
     price = models.CharField(max_length=64)
     image_url = models.URLField(max_length=4096,default='')
     product_url = models.URLField(max_length=4096,default='')
+
+#信息类别
+class CFBType(models.Model):
+    name = models.CharField(max_length=32)
+#信息状态
+class CFBStatus(models.Model):
+    name = models.CharField(max_length=128)
+#信息门类
+class CFBMenu(models.Model):
+    name = models.CharField(max_length=32)
+#招标详情
+class CFBDetail(models.Model):
+    title =  models.CharField(max_length=128)
+    href = models.URLField(max_length=512)
+    publish_date = models.TimeField()
+    menu = models.ForeignKey(CFBMenu)
+    type = models.ForeignKey(CFBType)
+    status = models.ForeignKey(CFBStatus)
