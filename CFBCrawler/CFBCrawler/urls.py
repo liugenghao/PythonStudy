@@ -20,7 +20,7 @@ from management import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.callForBidInfo, name='callForBidInfo'),
-    url(r'^callForBidInfo/', views.callForBidInfo, name='callForBidInfo'),
+    url(r'^callForBidInfo/(.*)', views.callForBidInfo, name='callForBidInfo'),
     url(r'^callForBidCrawler/', views.callForBidCrawler, name='callForBidCrawler'),
     url(r'^genMenus/', views.genMenus, name='genMenus'),
 ]

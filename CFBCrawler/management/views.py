@@ -16,17 +16,15 @@ def genMenus(request):
     # return HttpResponse(topMenus)
     return HttpResponse(json.dumps(result,ensure_ascii=False))
 #招标信息列表
-def callForBidInfo(request):
+def callForBidInfo(request,code):
     itemNum = request.COOKIES.get('pageNum', 10)  # 每页信息条数
     pageRange = 8  # 分页范围
-    url = request.get_raw_uri()
-    # print(url)
-    action_str = '/callForBidInfo/'
-    pos = url.find(action_str)+len(action_str)
-    code = url[pos:-1]
     # print(code)
+    action_url = ''
     menu_open = False
     if code:
+        code = code[:-1]
+        action_url = '/callForBidInfo/'+code
         menu_open = True;
         cfb_informations = models.CFBInfoDetail.objects.filter(code__contains=code, code__startswith=code).values(
             'title', 'href', 'publication_date', 'code').order_by('-publication_date')
@@ -45,7 +43,7 @@ def callForBidInfo(request):
     cfb_informations = p_obj.page(p)
     return render(request, 'call_for_bid_info.html',
                   {'cfb_informations': cfb_informations, 'pageRange': pageRange, 'restPages': restPages,
-                   'itemNum': itemNum, 'total_num': total_num,'menu_open':menu_open,'code':code})
+                   'itemNum': itemNum, 'total_num': total_num,'menu_open':menu_open,'action_url':action_url,'code':code})
 # 抓取
 def callForBidCrawler(request):
     from management import crawler

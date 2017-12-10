@@ -62,10 +62,10 @@
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="标题: activate to sort column descending">标题
                                                 </th>
-                                                <th class="sorting no-wrap" tabindex="0" aria-controls="example1"
-                                                    rowspan="1"
-                                                    colspan="1" aria-label="链接: activate to sort column ascending">链接
-                                                </th>
+{#                                                <th class="sorting no-wrap" tabindex="0" aria-controls="example1"#}
+{#                                                    rowspan="1"#}
+{#                                                    colspan="1" aria-label="链接: activate to sort column ascending">链接#}
+{#                                                </th>#}
                                                 <th class="sorting no-wrap" tabindex="0" aria-controls="example1"
                                                     rowspan="1"
                                                     colspan="1" aria-label="发布日期: activate to sort column ascending">
@@ -77,10 +77,7 @@
 
                                             {% for info in cfb_informations %}
                                                 <tr role="row">
-                                                    <td>{{ info.title }}</td>
-                                                    <td>
-                                                        {{ info.href }}
-                                                    </td>
+                                                    <td><a href="{{ info.href }}" target="_blank">{{ info.title }}</a></td>
                                                     <td class="no-wrap">{{ info.publication_date }}</td>
                                                 </tr>
                                             {% endfor %}
@@ -89,7 +86,7 @@
                                             <tfoot>
                                             <tr>
                                                 <th rowspan="1" colspan="1">标题</th>
-                                                <th rowspan="1" colspan="1">链接</th>
+{#                                                <th rowspan="1" colspan="1">链接</th>#}
                                                 <th rowspan="1" colspan="1">发布日期</th>
                                             </tr>
                                             </tfoot>
@@ -107,22 +104,22 @@
                                         <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                                             <ul class="pagination">
                                                 {% if cfb_informations.number > pageRange %}
-                                                    <li><a href="/callForBidInfo/?p=1">首页</a></li>'
+                                                    <li><a href="{{ action_url }}/?p=1">首页</a></li>'
                                                 {% endif %}
                                                 {% if food.has_previous %}
                                                     <li>
-                                                        <a cfb_informations="/callForBidInfo/?p={{ cfb_informations.previous_page_number }}">上一页</a>
+                                                        <a cfb_informations="{{ action_url }}/?p={{ cfb_informations.previous_page_number }}">上一页</a>
                                                     </li>
                                                 {% endif %}
-                                                {% circle_page cfb_informations.number cfb_informations.paginator.num_pages pageRange 'callForBidInfo' %}
+                                                {% circle_page cfb_informations.number cfb_informations.paginator.num_pages pageRange action_url %}
                                                 {% if cfb_informations.has_next %}
                                                     <li>
-                                                        <a href="/callForBidInfo/?p={{ cfb_informations.next_page_number }}">下一页</a>
+                                                        <a href="{{ action_url }}/?p={{ cfb_informations.next_page_number }}">下一页</a>
                                                     </li>
                                                 {% endif %}
                                                 {% if cfb_informations.number < restPages %}
                                                     <li>
-                                                        <a href="/callForBidInfo/?p={{ cfb_informations.paginator.num_pages }}">尾页</a>
+                                                        <a href="{{ action_url }}/?p={{ cfb_informations.paginator.num_pages }}">尾页</a>
                                                     </li>
                                                 {% endif %}
                                             </ul>
@@ -212,8 +209,6 @@
                 {#    $('#topMenus').parents().removeClass('active');#}
                 {#    $('#topMenus').parent('li').addClass('active');#}
                 {##}
-                {#});#}
-
             });
         });
     </script>
