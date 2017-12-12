@@ -10,8 +10,10 @@ from django.utils.http import urlquote
 def genMenus(request):
     result = []
     topMenus = models.CFBMenuInfo.objects.filter(layer=1).values_list('name','code')
+    print(topMenus)
     for menu in topMenus:
         result.append(menu)
+    print(result)
     # result = json.dumps(list(topMenus))
     # return HttpResponse(topMenus)
     return HttpResponse(json.dumps(result,ensure_ascii=False))
