@@ -96,15 +96,25 @@ def getAllInfo(url):
                 for item in items:
                     title = item.a.get_text()
                     article = models.CFBInfoDetail.objects.filter(title=title).first()
-                    if not article:
+                    if not article:#详细信息如果还没有存入数据库
                         href = item.a['href']
                         date = item.select('.list-date')[0].get_text()
                         if href and date:
-                            code = re.match(r'.*/(\d*)', url, re.S).group(1)
+                            code = re.match(r'.*/(\d*)', url, re.S).group(1)#底层子分类
                             menu_Type = models.CFBMenuInfo.objects.filter(code=code).first()
                             href = BaseData.TOP_URL + href
-                            models.CFBInfoDetail.objects.create(title=title, href=href, publication_date=date,
+                            article = models.CFBInfoDetail.objects.create(title=title, href=href, publication_date=date,
                                                                 code=code)
+                            # print('info_id:',article.id)
+                            layer = menu_Type.layer
+                            models.info_m2m_menu.objects.create(info=article,menu=menu_Type,layer=layer)
+                            while layer > 1:#循环到最上层菜单
+                                layer = layer - 1
+                                # print(layer)
+                                code = code[:menu_Type.url_length-3]#上一级菜单的code
+                                menu_Type = models.CFBMenuInfo.objects.filter(code=code).first()
+                                models.info_m2m_menu.objects.create(info=article, menu=menu_Type,layer=layer)
+
 
         except RequestException:
             print('请求索引页出错')
@@ -121,5 +131,7 @@ def startCrawler():
     # initialMenu()
     urls = genUrl()
     for url in urls:
-        getAllInfo(url)
+        t = threading.Thread(getAllInfo(url))
+        t.setDaemon(True)
+        t.start()
 

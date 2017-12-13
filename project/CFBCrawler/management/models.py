@@ -26,4 +26,5 @@ class CFBInfoDetail(models.Model):
 class info_m2m_menu(models.Model):
     info = models.ForeignKey(to='CFBInfoDetail',to_field='id')
     menu = models.ForeignKey(to='CFBMenuInfo',to_field='id')
+    layer = models.IntegerField()
 
